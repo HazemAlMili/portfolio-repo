@@ -1,0 +1,97 @@
+/* Header styles */
+.header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    transition: all 0.3s ease;
+}
+
+.header.scrolled {
+    /* background-color: rgba(255, 255, 255, 0.95); */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+}
+
+.logo-img {
+    width: 170px;
+    cursor: pointer;
+    font-weight: 900;
+    color: var(--foreground);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.logo:hover {
+    color: var(--accent);
+}
+
+.nav-links {
+    /* display: none; */
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--foreground);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    transition: color 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.mobile-menu-btn {
+    display: none;
+}
+
+.mobile-menu {
+    display: block;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem;
+}
+
+.mobile-menu .nav-link {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+/* موبايل (شاشات أصغر من 768px) */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        /* نخفي اللينكات */
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        /* نعرض زر الهمبرغر */
+        font-size: 1.5rem;
+    }
+
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+}

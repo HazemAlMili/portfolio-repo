@@ -1,0 +1,150 @@
+/* Footer */
+.footer {
+    background-color: var(--secondary);
+    color: var(--primary-foreground);
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+}
+
+.footer-subtitle {
+    opacity: 0.8;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-social a {
+    color: var(--primary-foreground);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.footer-social a:hover {
+    opacity: 1;
+}
+
+.footer-copyright {
+    opacity: 0.6;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.heart {
+    color: #ef4444;
+}
+
+/* Animations */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.fade-in-left {
+    animation: fadeInLeft 0.6s ease-out forwards;
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    53%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40%,
+    43% {
+        transform: translateY(-30px);
+    }
+
+    70% {
+        transform: translateY(-15px);
+    }
+
+    90% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Scroll reveal animations */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease-out;
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-reveal.delay-1 {
+    transition-delay: 0.1s;
+}
+
+.scroll-reveal.delay-2 {
+    transition-delay: 0.2s;
+}
+
+.scroll-reveal.delay-3 {
+    transition-delay: 0.3s;
+}
+
