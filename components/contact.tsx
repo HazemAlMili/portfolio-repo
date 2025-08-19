@@ -14,7 +14,6 @@ function Contact() {
   const [statusMessage, setStatusMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
 
-  // 👀 مراقبة القسم مشان fade-in animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -63,10 +62,7 @@ function Contact() {
       setStatusMessage("✅ Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err: unknown) {
-      const msg =
-        (err as any)?.text ||
-        (err as Error)?.message ||
-        "Unknown EmailJS error";
+      const msg = err || "Unknown EmailJS error";
       console.error("EmailJS error:", msg);
       setStatusMessage("❌ Failed to send message. Please try again.");
     } finally {
