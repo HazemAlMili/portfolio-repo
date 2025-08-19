@@ -1,9 +1,8 @@
 "use client";
 
-import type React from "react";
 import { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
 import "../styles/Contact.css";
-
 
 function Contact() {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,7 +11,10 @@ function Contact() {
     email: "",
     message: "",
   });
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
+  // 👀 مراقبة القسم مشان fade-in animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,13 +26,12 @@ function Contact() {
     );
 
     const element = document.getElementById("contact");
-    if (element) {
-      observer.observe(element);
-    }
+    if (element) observer.observe(element);
 
     return () => observer.disconnect();
   }, []);
 
+  // 📝 تحديث بيانات الفورم
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -41,20 +42,39 @@ function Contact() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // 📤 الإرسال عبر EmailJS
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Create mailto link with form data
-    const subject = encodeURIComponent(
-      `Portfolio Contact from ${formData.name}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    const mailtoLink = `mailto:hazem.almelli@example.com?subject=${subject}&body=${body}`;
+    setIsSending(true);
+    setStatusMessage("");
 
-    window.location.href = mailtoLink;
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+
+      setStatusMessage("✅ Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: unknown) {
+      const msg =
+        (err as any)?.text ||
+        (err as Error)?.message ||
+        "Unknown EmailJS error";
+      console.error("EmailJS error:", msg);
+      setStatusMessage("❌ Failed to send message. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
+  // 🧾 بيانات التواصل (الكروت الجانبية)
   const contactInfo = [
     {
       icon: "📧",
@@ -97,21 +117,21 @@ function Contact() {
               }}
             >
               I am always interested in new opportunities and collaborations.
-              Lets discuss how we can work together to bring your ideas to life.
+              Let&apos;s discuss how we can work together to bring your ideas to
+              life.
             </p>
           </div>
 
           <div className="contact-grid">
-            {/* Contact Information */}
-            <div className="contact-info" >
-              <h3 style={{ textAlign: "center" }}>Lets Connect</h3>
-              <p style={{ textAlign: "center", }}>
+            {/* Contact Info */}
+            <div className="contact-info">
+              <h3 style={{ textAlign: "center" }}>Let&apos;s Connect</h3>
+              <p style={{ textAlign: "center" }}>
                 Whether you have a project in mind, want to collaborate, or just
-                want to say hello, I d love to hear from you. Feel free to reach
-                out through any of the channels below.
+                want to say hello, I&apos;d love to hear from you. Feel free to
+                reach out through any of the channels below.
               </p>
 
-              {/* Contact Cards */}
               <div className="contact-cards">
                 {contactInfo.map((info, index) => (
                   <div
@@ -207,10 +227,23 @@ function Contact() {
                     type="submit"
                     className="btn btn-primary btn-lg"
                     style={{ width: "100%" }}
+                    disabled={isSending}
                   >
-                    <span style={{ marginRight: "0.5rem" }}>📤</span>
-                    Send Message
+                    {isSending ? "⏳ Sending..." : "📤 Send Message"}
                   </button>
+
+                  {/* Status Message */}
+                  {statusMessage && (
+                    <p
+                      style={{
+                        marginTop: "1rem",
+                        textAlign: "center",
+                        color: statusMessage.startsWith("✅") ? "green" : "red",
+                      }}
+                    >
+                      {statusMessage}
+                    </p>
+                  )}
                 </form>
               </div>
             </div>
@@ -220,4 +253,5 @@ function Contact() {
     </section>
   );
 }
+
 export default Contact;
