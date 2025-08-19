@@ -60,7 +60,7 @@ function Contact() {
       icon: "📧",
       title: "Email",
       value: "hazemalmili77@gmail.com",
-      link: "mailto:hazem.almelli@example.com",
+      link: "mailto:hazemalmili77@gmail.com",
     },
     {
       icon: "💻",
