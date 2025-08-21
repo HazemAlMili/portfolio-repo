@@ -18,29 +18,32 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Hazem Al-Melli - Front-End Developer",
+  title: "Hazem Al-Melli | Front-End Developer",
   description:
-    "Personal portfolio of Hazem Al-Melli, a passionate front-end developer specializing in modern web technologies.",
-  keywords:
-    "Hazem Al-Melli, front-end developer, web developer, React, HTML, CSS, JavaScript, portfolio",
-  authors: [{ name: "Hazem Al-Melli" }],
-  creator: "Hazem Al-Melli",
+    "Portfolio showcasing modern, responsive web projects built with React & Next.js.",
   openGraph: {
-    title: "Hazem Al-Melli - Front-End Developer",
+    title: "Hazem Al-Melli | Front-End Developer",
     description:
-      "Personal portfolio showcasing modern web development projects and skills.",
-    type: "website",
+      "Portfolio showcasing modern, responsive web projects built with React & Next.js.",
+    url: "https://YOUR-DOMAIN.com",
+    siteName: "Hazem Al-Melli Portfolio",
+    images: [
+      {
+        url: "https://YOUR-DOMAIN.com/images/preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Hazem Al-Melli Portfolio Preview",
+      },
+    ],
     locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hazem Al-Melli - Front-End Developer",
+    title: "Hazem Al-Melli | Front-End Developer",
     description:
-      "Personal portfolio showcasing modern web development projects and skills.",
-  },
-  robots: {
-    index: true,
-    follow: true,
+      "Portfolio showcasing modern, responsive web projects built with React & Next.js.",
+    images: ["https://YOUR-DOMAIN.com/images/preview.png"],
   },
 };
 
