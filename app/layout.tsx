@@ -58,6 +58,20 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <meta
+          property="og:title"
+          content="Hazem Al-Melli | Front-End Developer Portfolio"
+        />
+        <meta
+          property="og:description"
+          content="Check out my portfolio showcasing modern, responsive web projects built with React & Next.js."
+        />
+        <meta
+          property="og:image"
+          content="https://your-domain.com/images/preview.png"
+        />
+        <meta property="og:url" content="https://your-domain.com" />
+        <meta name="twitter:card" content="summary_large_image" />
       </head>
       <body className="font-serif antialiased">{children}</body>
     </html>
