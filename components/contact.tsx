@@ -1,49 +1,66 @@
 "use client";
 
+import type React from "react";
 import { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 import "../styles/Contact.css";
 
 function Contact() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-  const [statusMessage, setStatusMessage] = useState("");
-  const [isSending, setIsSending] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.1 }
     );
-
     const element = document.getElementById("contact");
     if (element) observer.observe(element);
-
     return () => observer.disconnect();
   }, []);
 
-  // 📝 تحديث بيانات الفورم
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" })); // Clear error on typing
   };
 
-  // 📤 الإرسال عبر EmailJS
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (formData.name.trim().length < 3) {
+      newErrors.name = "Name must be at least 3 characters.";
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      setStatusMessage("⚠️ Please fix the errors above.");
+      return;
+    }
+
     setIsSending(true);
     setStatusMessage("");
 
@@ -52,8 +69,8 @@ function Contact() {
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
-          name: formData.name,
-          email: formData.email,
+          from_name: formData.name,
+          from_email: formData.email,
           message: formData.message,
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
@@ -62,35 +79,18 @@ function Contact() {
       setStatusMessage("✅ Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err: unknown) {
-      const msg = err || "Unknown EmailJS error";
+      const msg =
+        (err as null)?
+        (err as Error)? 
+        "Unknown EmailJS error":
+        "Unknown error":
+        "Unknown error";
       console.error("EmailJS error:", msg);
       setStatusMessage("❌ Failed to send message. Please try again.");
     } finally {
       setIsSending(false);
     }
   };
-
-  // 🧾 بيانات التواصل (الكروت الجانبية)
-  const contactInfo = [
-    {
-      icon: "📧",
-      title: "Email",
-      value: "hazemalmili77@gmail.com",
-      link: "mailto:hazemalmili77@gmail.com",
-    },
-    {
-      icon: "💻",
-      title: "GitHub",
-      value: "HazemAlMili",
-      link: "https://github.com/HazemAlMili",
-    },
-    {
-      icon: "💼",
-      title: "LinkedIn",
-      value: "hazem-al-melli",
-      link: "https://www.linkedin.com/in/hazem-al-melli-a0a0992a5",
-    },
-  ];
 
   return (
     <section id="contact" className="section contact">
@@ -101,7 +101,6 @@ function Contact() {
           }`}
           style={{ opacity: isVisible ? 1 : 0 }}
         >
-          {/* Section Header */}
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <h2 className="section-title">Get In Touch</h2>
             <p
@@ -113,54 +112,12 @@ function Contact() {
               }}
             >
               I am always interested in new opportunities and collaborations.
-              Let&apos;s discuss how we can work together to bring your ideas to
+              Let’s discuss how we can work together to bring your ideas to
               life.
             </p>
           </div>
 
           <div className="contact-grid">
-            {/* Contact Info */}
-            <div className="contact-info">
-              <h3 style={{ textAlign: "center" }}>Let&apos;s Connect</h3>
-              <p style={{ textAlign: "center" }}>
-                Whether you have a project in mind, want to collaborate, or just
-                want to say hello, I&apos;d love to hear from you. Feel free to
-                reach out through any of the channels below.
-              </p>
-
-              <div className="contact-cards">
-                {contactInfo.map((info, index) => (
-                  <div
-                    key={info.title}
-                    className={`card contact-card ${
-                      isVisible ? "fade-in-left" : ""
-                    }`}
-                    style={{
-                      opacity: isVisible ? 1 : 0,
-                      animationDelay: `${index * 150}ms`,
-                    }}
-                  >
-                    <a
-                      href={info.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div
-                        className="contact-card-icon"
-                        style={{ fontSize: "1.5rem" }}
-                      >
-                        {info.icon}
-                      </div>
-                      <div>
-                        <h4 className="contact-card-title">{info.title}</h4>
-                        <p className="contact-card-value">{info.value}</p>
-                      </div>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Contact Form */}
             <div
               className={`card ${isVisible ? "fade-in-right" : ""}`}
@@ -182,9 +139,13 @@ function Contact() {
                       placeholder="Your full name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      required
                       className="form-input"
                     />
+                    {errors.name && (
+                      <p className="error-message" style={{ color: "red" }}>
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -198,9 +159,13 @@ function Contact() {
                       placeholder="your.email@example.com"
                       value={formData.email}
                       onChange={handleInputChange}
-                      required
                       className="form-input"
                     />
+                    {errors.email && (
+                      <p className="error-message" style={{ color: "red" }}>
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -214,9 +179,13 @@ function Contact() {
                       rows={5}
                       value={formData.message}
                       onChange={handleInputChange}
-                      required
                       className="form-textarea"
                     />
+                    {errors.message && (
+                      <p className="error-message" style={{ color: "red" }}>
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
                   <button
@@ -225,22 +194,21 @@ function Contact() {
                     style={{ width: "100%" }}
                     disabled={isSending}
                   >
-                    {isSending ? "⏳ Sending..." : "📤 Send Message"}
+                    {isSending ? "Sending..." : "📤 Send Message"}
                   </button>
-
-                  {/* Status Message */}
-                  {statusMessage && (
-                    <p
-                      style={{
-                        marginTop: "1rem",
-                        textAlign: "center",
-                        color: statusMessage.startsWith("✅") ? "green" : "red",
-                      }}
-                    >
-                      {statusMessage}
-                    </p>
-                  )}
                 </form>
+
+                {statusMessage && (
+                  <p
+                    style={{
+                      marginTop: "1rem",
+                      textAlign: "center",
+                      color: statusMessage.startsWith("✅") ? "green" : "red",
+                    }}
+                  >
+                    {statusMessage}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -249,5 +217,4 @@ function Contact() {
     </section>
   );
 }
-
 export default Contact;
