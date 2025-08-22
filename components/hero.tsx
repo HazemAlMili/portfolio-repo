@@ -13,7 +13,7 @@ export default function Hero() {
 
     if (typedRef.current) {
       const typed = new Typed(typedRef.current, {
-        strings: ["Hazem Al-Melli", "Web Developer", "Front-End Developer", "Vibe Coder"], 
+        strings: ["Hazem Al-Melli", "Web Developer", "Front-End Developer"], 
         typeSpeed: 100,
         backSpeed: 60,
         backDelay: 1000,

@@ -11,6 +11,7 @@ function Contact() {
   const [statusMessage, setStatusMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     email: "",
     message: "",
   });
@@ -48,6 +49,9 @@ function Contact() {
     if (formData.message.trim().length < 10) {
       newErrors.message = "Message must be at least 10 characters.";
     }
+    if (formData.phone.trim().length < 11) {
+      newErrors.phone = "Please enter a valid phone number.";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -77,7 +81,7 @@ function Contact() {
       );
 
       setStatusMessage("✅ Message sent successfully!");
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "",phone: "", email: "", message: "" });
     } catch (err: unknown) {
       const msg =
         (err as null)?
@@ -164,6 +168,25 @@ function Contact() {
                     {errors.email && (
                       <p className="error-message" style={{ color: "red" }}>
                         {errors.email}
+                      </p>
+                    )}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email" className="form-label">
+                      Phone
+                    </label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="Enter your phone number"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="form-input"
+                    />
+                    {errors.phone && (
+                      <p className="error-message" style={{ color: "red" }}>
+                        {errors.phone}
                       </p>
                     )}
                   </div>
