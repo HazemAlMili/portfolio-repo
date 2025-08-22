@@ -1,22 +1,22 @@
-// import Header from "@/components/header";
-// import Hero from "@/components/hero";
-// import About from "@/components/about";
-// import Projects from "@/components/projects";
-// import Contact from "@/components/contact";
-// import Footer from "@/components/footer";
+import Header from "@/components/header";
+import Hero from "@/components/hero";
+import About from "@/components/about";
+import Projects from "@/components/projects";
+import Contact from "@/components/contact";
+import Footer from "@/components/footer";
 import "./globals.css";
 export default function Home() {
   return (
     <main>
-      {/* <Header />
+      <Header />
       <Hero />
       <About />
       <Projects />
       <Contact />
-      <Footer /> */}
+      <Footer />
 
       {/* Development Message */}
-      <h1
+      {/* <h1
         style={{
           fontSize: "40px",
           fontWeight: "bold",
@@ -43,9 +43,8 @@ export default function Home() {
         }}
       >
         Best Regards,
-        <br />
         <q>Hazem Al-Melli</q>
-      </h6>
+      </h6> */}
     </main>
   );
 }

@@ -46,11 +46,11 @@ function Contact() {
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
-    if (formData.message.trim().length < 10) {
-      newErrors.message = "Message must be at least 10 characters.";
-    }
     if (formData.phone.trim().length < 11) {
       newErrors.phone = "Please enter a valid phone number.";
+    }
+    if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters.";
     }
 
     setErrors(newErrors);
@@ -73,22 +73,22 @@ function Contact() {
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
-          from_name: formData.name,
-          from_email: formData.email,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
           message: formData.message,
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
 
       setStatusMessage("✅ Message sent successfully!");
-      setFormData({ name: "",phone: "", email: "", message: "" });
+      setFormData({ name: "", phone: "", email: "", message: "" });
     } catch (err: unknown) {
-      const msg =
-        (err as null)?
-        (err as Error)? 
-        "Unknown EmailJS error":
-        "Unknown error":
-        "Unknown error";
+      const msg = (err as null)
+        ? (err as Error)
+          ? "Unknown EmailJS error"
+          : "Unknown error"
+        : "Unknown error";
       console.error("EmailJS error:", msg);
       setStatusMessage("❌ Failed to send message. Please try again.");
     } finally {
