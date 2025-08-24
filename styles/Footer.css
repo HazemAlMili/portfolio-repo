@@ -10,18 +10,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0rem;
 }
 
-.footer-title {
-    font-size: 1.5rem;
-    font-weight: 900;
-    margin-bottom: 0.5rem;
+.footer-content .logo-img {
+    margin-bottom: -30px;
 }
 
-.footer-subtitle {
-    opacity: 0.8;
-}
 
 .footer-social {
     display: flex;
@@ -47,9 +42,6 @@
     gap: 0.25rem;
 }
 
-.heart {
-    color: #ef4444;
-}
 
 /* Animations */
 .fade-in-up {

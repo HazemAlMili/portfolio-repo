@@ -3,7 +3,7 @@ import "../styles/Footer.css";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -25,16 +25,17 @@ function Footer() {
           </button>
 
           {/* Social Links */}
-          <div className="footer-social">
+          <div className="social-links">
             <a
               href="https://github.com/HazemAlMili"
               target="_blank"
               rel="noopener noreferrer"
+              className="social-link"
               aria-label="GitHub Profile"
             >
               <svg
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
@@ -45,11 +46,12 @@ function Footer() {
               href="https://www.linkedin.com/in/hazem-al-melli-a0a0992a5"
               target="_blank"
               rel="noopener noreferrer"
+              className="social-link"
               aria-label="LinkedIn Profile"
             >
               <svg
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
@@ -89,13 +91,11 @@ function Footer() {
               </svg>
             </a>
           </div>
+        </div>
 
-          {/* Copyright */}
-          <div className="footer-copyright">
-            <p>
-              © {currentYear} Hazem Al-Melli. Made with using React & Next.js
-            </p>
-          </div>
+        {/* Copyright */}
+        <div className="footer-copyright">
+          <p>© {currentYear} Hazem Al-Melli. Made with using React & Next.js</p>
         </div>
       </div>
     </footer>
