@@ -131,7 +131,12 @@ function Contact() {
                 <h3>Send a Message</h3>
               </div>
               <div className="card-content">
-                <form action="http://localhost:5678/webhook-test" method="POST" onSubmit={handleSubmit} className="contact-form">
+                <form
+                  action=" https://hazemalmelli.app.n8n.cloud/webhook-test/53686739-7c2e-44e0-a05d-c789ed20256a"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  className="contact-form"
+                >
                   <div className="form-group">
                     <label htmlFor="name" className="form-label">
                       Name
