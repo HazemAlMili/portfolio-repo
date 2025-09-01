@@ -131,7 +131,7 @@ function Contact() {
                 <h3>Send a Message</h3>
               </div>
               <div className="card-content">
-                <form onSubmit={handleSubmit} className="contact-form">
+                <form action="http://localhost:5678/webhook-test" method="POST" onSubmit={handleSubmit} className="contact-form">
                   <div className="form-group">
                     <label htmlFor="name" className="form-label">
                       Name
