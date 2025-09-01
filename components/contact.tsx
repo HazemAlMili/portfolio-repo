@@ -1,9 +1,6 @@
 "use client";
 
-import type React from "react";
 import { useEffect, useState } from "react";
-import emailjs from "@emailjs/browser";
-import "../styles/Contact.css";
 
 function Contact() {
   const [isVisible, setIsVisible] = useState(false);
@@ -34,25 +31,19 @@ function Contact() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" })); // Clear error on typing
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
-
-    if (formData.name.trim().length < 3) {
+    if (formData.name.trim().length < 3)
       newErrors.name = "Name must be at least 3 characters.";
-    }
-    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Please enter a valid email address.";
-    }
-    if (formData.phone.trim().length < 11) {
+    if (formData.phone.trim().length < 11)
       newErrors.phone = "Please enter a valid phone number.";
-    }
-    if (formData.message.trim().length < 10) {
+    if (formData.message.trim().length < 10)
       newErrors.message = "Message must be at least 10 characters.";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -69,27 +60,23 @@ function Contact() {
     setStatusMessage("");
 
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+      // إرسال البيانات لـ n8n Webhook
+      const response = await fetch(
+        "https://hazemalmelli.app.n8n.cloud/webhook-test/ff117638-7b83-49e9-b791-3f8e89fbec05",
         {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
       );
 
-      setStatusMessage("✅ Message sent successfully!");
+      if (!response.ok) throw new Error("Failed to send to n8n");
+
+      // كل شيء ناجح
       setFormData({ name: "", phone: "", email: "", message: "" });
-    } catch (err: unknown) {
-      const msg = (err as null)
-        ? (err as Error)
-          ? "Unknown EmailJS error"
-          : "Unknown error"
-        : "Unknown error";
-      console.error("EmailJS error:", msg);
+      setStatusMessage("✅ Message sent successfully via WhatsApp!");
+    } catch (error) {
+      console.error(error);
       setStatusMessage("❌ Failed to send message. Please try again.");
     } finally {
       setIsSending(false);
@@ -122,7 +109,6 @@ function Contact() {
           </div>
 
           <div className="contact-grid">
-            {/* Contact Form */}
             <div
               className={`card ${isVisible ? "fade-in-right" : ""}`}
               style={{ opacity: isVisible ? 1 : 0 }}
@@ -131,70 +117,28 @@ function Contact() {
                 <h3>Send a Message</h3>
               </div>
               <div className="card-content">
-                <form
-                  action=" https://hazemalmelli.app.n8n.cloud/webhook-test/53686739-7c2e-44e0-a05d-c789ed20256a"
-                  method="POST"
-                  onSubmit={handleSubmit}
-                  className="contact-form"
-                >
-                  <div className="form-group">
-                    <label htmlFor="name" className="form-label">
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="Your full name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="form-input"
-                    />
-                    {errors.name && (
-                      <p className="error-message" style={{ color: "red" }}>
-                        {errors.name}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="email" className="form-label">
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="your.email@example.com"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="form-input"
-                    />
-                    {errors.email && (
-                      <p className="error-message" style={{ color: "red" }}>
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email" className="form-label">
-                      Phone
-                    </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="Enter your phone number"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="form-input"
-                    />
-                    {errors.phone && (
-                      <p className="error-message" style={{ color: "red" }}>
-                        {errors.phone}
-                      </p>
-                    )}
-                  </div>
+                <form onSubmit={handleSubmit} className="contact-form">
+                  {["name", "email", "phone"].map((field) => (
+                    <div className="form-group" key={field}>
+                      <label htmlFor={field} className="form-label">
+                        {field.charAt(0).toUpperCase() + field.slice(1)}
+                      </label>
+                      <input
+                        id={field}
+                        name={field}
+                        type={field === "email" ? "email" : "text"}
+                        placeholder={`Enter your ${field}`}
+                        value={(formData as Record<string, string>)[field]}
+                        onChange={handleInputChange}
+                        className="form-input"
+                      />
+                      {errors[field] && (
+                        <p className="error-message" style={{ color: "red" }}>
+                          {errors[field]}
+                        </p>
+                      )}
+                    </div>
+                  ))}
 
                   <div className="form-group">
                     <label htmlFor="message" className="form-label">
@@ -245,4 +189,5 @@ function Contact() {
     </section>
   );
 }
+
 export default Contact;
