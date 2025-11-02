@@ -1,0 +1,124 @@
+/* Certificates section */
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.certificate-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.certificate-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+.certificate-image {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.certificate-image img {
+    transition: transform 0.3s ease;
+}
+
+.certificate-card:hover .certificate-image img {
+    transform: scale(1.05);
+}
+
+.certificate-content {
+    padding: 1.5rem;
+}
+
+.certificate-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.certificate-card:hover .certificate-title {
+    color: var(--accent);
+}
+
+.certificate-issuer {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.certificate-date {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+}
+
+/* Image Modal */
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 2rem;
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-modal-content>div {
+    width: 100%;
+    height: 100%;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.image-modal-close {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: var(--foreground);
+    font-size: 2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.image-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}

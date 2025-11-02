@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import "../styles/Projects.css";
 
 interface Project {
@@ -9,7 +10,7 @@ interface Project {
   technologies: string[];
   demoLink: string;
   codeLink: string;
-  image: null;
+  image: string;
 }
 
 function Projects() {
@@ -77,11 +78,12 @@ function Projects() {
                   animationDelay: `${index * 150}ms`,
                 }}
               >
-                <div style={{ overflow: "hidden", cursor: "pointer" }}>
-                  <img
-                    src={`${project.image}` || "/images/projects/default.png"}
-                    alt={`${project.title} screenshot`}
-                    className="project-image"
+                <div className="project-image" style={{ position: "relative" }}>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
 
@@ -107,7 +109,7 @@ function Projects() {
                       className="btn btn-primary btn-sm"
                     >
                       <span style={{ marginRight: "0.5rem" }}>🔗</span>
-                      Live Demo
+                      Demo
                     </a>
                     <a
                       href={project.codeLink}
@@ -135,7 +137,7 @@ function Projects() {
               Interested in seeing more of my work?
             </p>
             <a
-              href="https://github.com/HazemAlMili"
+              href="https://github.com/HazemAlMelli"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline btn-lg"

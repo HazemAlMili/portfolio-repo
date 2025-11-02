@@ -1,6 +1,6 @@
 "use client";
 import "../styles/Footer.css";
-
+import Image from "next/image";
 function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -21,7 +21,13 @@ function Footer() {
             onClick={() => scrollToSection("home")}
             style={{ textAlign: "center" }}
           >
-            <img src="/images/logo.svg" alt="Hazem-Logo" className="logo-img" />
+            <Image
+              src="/logo-22.svg"
+              alt="Hazem-Logo"
+              className="logo-img"
+              width={200}
+              height={200}
+            />
           </button>
 
           {/* Social Links */}

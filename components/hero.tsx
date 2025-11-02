@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
+import Image from "next/image";
+
 import "../styles/Hero.css";
 
 export default function Hero() {
@@ -13,7 +15,7 @@ export default function Hero() {
 
     if (typedRef.current) {
       const typed = new Typed(typedRef.current, {
-        strings: ["Hazem Al-Melli", "Web Developer", "Front-End Developer"], 
+        strings: ["Hazem Al-Melli", "Web Developer", "Front-End Developer"],
         typeSpeed: 100,
         backSpeed: 60,
         backDelay: 1000,
@@ -145,10 +147,12 @@ export default function Hero() {
           {/* Right Column - Hero Photo */}
           <div className="hero-photo">
             <div className="profile-image">
-              <img
-                src="/images/Hero.png"
+              <Image
+                src="/Hero.png"
                 alt="Hazem Al-Melli - Front-End Developer"
                 className="profile-img"
+                width={500}
+                height={500}
               />
             </div>
           </div>
