@@ -107,7 +107,7 @@
     height: 1.5px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
     transform: translateX(-50%);
-    opacity: 0;
+    opacity: 1;
     box-shadow: 0 0 20px var(--accent), 0 0 50px var(--accent);
     transition: opacity 0.3s ease;
 }
@@ -115,7 +115,7 @@
 .nav-link:hover::after,
 .nav-link.active::after {
     opacity: 1;
-    animation: borderExpand 4s ease-in-out infinite;
+    width: 100%;
 }
 
 .nav-link:hover {
