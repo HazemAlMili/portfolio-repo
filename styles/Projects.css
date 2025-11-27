@@ -22,7 +22,7 @@
 .project-card:hover {
     transform: translateY(-8px) scale(1.02);
     border-color: var(--accent);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px var(--accent);
 }
 
 .project-image {

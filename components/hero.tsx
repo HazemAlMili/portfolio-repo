@@ -1,21 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Typed from "typed.js";
 import Image from "next/image";
+import { personalInfo } from "@/lib/data";
+import ScrollReveal from "./ScrollReveal";
 
 import "../styles/Hero.css";
 
 export default function Hero() {
-  const [isVisible, setIsVisible] = useState(false);
   const typedRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    setIsVisible(true);
-
     if (typedRef.current) {
       const typed = new Typed(typedRef.current, {
-        strings: ["Hazem Al-Melli", "Web Developer", "Front-End Developer"],
+        strings: [personalInfo.name, ...personalInfo.titles],
         typeSpeed: 100,
         backSpeed: 60,
         backDelay: 1000,
@@ -38,7 +37,7 @@ export default function Hero() {
   return (
     <section id="home" className="hero">
       <div className="container">
-        <div className={`hero-layout ${isVisible ? "fade-in-up" : ""}`}>
+        <ScrollReveal className="hero-layout">
           {/* Left Column - Content */}
           <div className="hero-content">
             {/* Main Heading */}
@@ -78,7 +77,7 @@ export default function Hero() {
             {/* Social Links */}
             <div className="social-links">
               <a
-                href="https://github.com/HazemAlMili"
+                href={personalInfo.socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
@@ -94,7 +93,7 @@ export default function Hero() {
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com/in/hazem-al-melli-a0a0992a5"
+                href={personalInfo.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
@@ -110,7 +109,7 @@ export default function Hero() {
                 </svg>
               </a>
               <a
-                href="https://www.instagram.com/hazem_almelli/"
+                href={personalInfo.socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
@@ -126,7 +125,7 @@ export default function Hero() {
                 </svg>
               </a>
               <a
-                href="https://www.facebook.com/HazemAlMelli/"
+                href={personalInfo.socialLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
@@ -153,10 +152,11 @@ export default function Hero() {
                 className="profile-img"
                 width={500}
                 height={500}
+                priority
               />
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Scroll Indicator */}
         <div className="scroll-indicator">

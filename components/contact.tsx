@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
+import { personalInfo } from "@/lib/data";
+import ScrollReveal from "./ScrollReveal";
+import "../styles/Contact.css"; // We will need to update or create this CSS file
 
 function Contact() {
-  const [isVisible, setIsVisible] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -13,18 +17,6 @@ function Contact() {
     message: "",
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    const element = document.getElementById("contact");
-    if (element) observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,7 +32,7 @@ function Contact() {
       newErrors.name = "Name must be at least 3 characters.";
     if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Please enter a valid email address.";
-    if (formData.phone.trim().length < 11)
+    if (formData.phone.trim().length < 10)
       newErrors.phone = "Please enter a valid phone number.";
     if (formData.message.trim().length < 10)
       newErrors.message = "Message must be at least 10 characters.";
@@ -60,21 +52,16 @@ function Contact() {
     setStatusMessage("");
 
     try {
-      // إرسال البيانات لـ n8n Webhook
-      const response = await fetch(
-        "https://hazemalmelli.app.n8n.cloud/webhook-test/7eb25607-aabe-45c9-8c7e-4562138568d7",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (!response.ok) throw new Error("Failed to send to n8n");
-
-      // كل شيء ناجح
-      setFormData({ name: "", phone: "", email: "", message: "" });
-      setStatusMessage("✅ Message sent successfully via WhatsApp!");
+      if (formRef.current) {
+        await emailjs.sendForm(
+          "service_i0g23go",
+          "template_yl9m944",
+          formRef.current,
+          "2Qz2FokxzYrt9blZ0"
+        );
+        setFormData({ name: "", phone: "", email: "", message: "" });
+        setStatusMessage("✅ Message sent successfully!");
+      }
     } catch (error) {
       console.error(error);
       setStatusMessage("❌ Failed to send message. Please try again.");
@@ -86,12 +73,7 @@ function Contact() {
   return (
     <section id="contact" className="section contact">
       <div className="container">
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? "fade-in-up" : ""
-          }`}
-          style={{ opacity: isVisible ? 1 : 0 }}
-        >
+        <ScrollReveal>
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <h2 className="section-title">Get In Touch</h2>
             <p
@@ -108,16 +90,82 @@ function Contact() {
             </p>
           </div>
 
-          <div className="contact-grid">
-            <div
-              className={`card ${isVisible ? "fade-in-right" : ""}`}
-              style={{ opacity: isVisible ? 1 : 0 }}
-            >
+          <div className="contact-grid-layout">
+            {/* Contact Info Card */}
+            <ScrollReveal className="contact-info-card" delay={200}>
+              <h3>Contact Information</h3>
+              <p className="contact-info-text">
+                Feel free to reach out to me directly through any of these
+                channels.
+              </p>
+
+              <div className="contact-details">
+                <div className="contact-item">
+                  <span className="icon">📧</span>
+                  <a href={`mailto:${personalInfo.email}`}>
+                    {personalInfo.email}
+                  </a>
+                </div>
+                <div className="contact-item">
+                  <span className="icon">📞</span>
+                  <a href={`tel:${personalInfo.phone}`}>{personalInfo.phone}</a>
+                </div>
+                <div className="contact-item">
+                  <span className="icon">📍</span>
+                  <span>{personalInfo.location}</span>
+                </div>
+              </div>
+
+              <div className="social-connect">
+                <h4>Connect with me</h4>
+                <div className="social-icons">
+                  <a
+                    href={personalInfo.socialLinks.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                  >
+                    GitHub
+                  </a>
+                  <a
+                    href={personalInfo.socialLinks.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    href={personalInfo.socialLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                  >
+                    Instagram
+                  </a>
+                  <a
+                    href={personalInfo.socialLinks.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                  >
+                    Facebook
+                  </a>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Contact Form */}
+            <ScrollReveal className="card contact-form-card" delay={400}>
               <div className="card-header">
                 <h3>Send a Message</h3>
               </div>
               <div className="card-content">
-                <form onSubmit={handleSubmit} className="contact-form">
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  className="contact-form"
+                >
                   {["name", "email", "phone"].map((field) => (
                     <div className="form-group" key={field}>
                       <label htmlFor={field} className="form-label">
@@ -182,9 +230,9 @@ function Contact() {
                   </p>
                 )}
               </div>
-            </div>
+            </ScrollReveal>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
