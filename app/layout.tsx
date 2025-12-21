@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     images: ["https://portfolio-repo-pearl.vercel.app/images/Hero.png"],
   },
   icons: {
-    icon: ["https://portfolio-repo-pearl.vercel.app/images/logo.svg"],
+    icon: ["/icon.png"],
   },
 };
 
