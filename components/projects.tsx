@@ -67,6 +67,7 @@ function Projects() {
                       <span style={{ marginRight: "0.5rem" }}>🔗</span>
                       Demo
                     </a>
+
                     <a
                       href={project.codeLink}
                       target="_blank"

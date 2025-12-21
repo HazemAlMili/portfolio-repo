@@ -50,42 +50,6 @@ export const features = [
 
 export const projects = [
   {
-    title: "Leon Template One",
-    description:
-      "A responsive front-end template built with HTML and CSS as a practice project.",
-    technologies: ["HTML", "CSS"],
-    demoLink: "https://hazemalmili.github.io/Leon-Template-One/",
-    codeLink: "https://github.com/HazemAlMili/Leon-Template-One",
-    image: "/leon.png",
-  },
-  {
-    title: "Kasper Template Two",
-    description:
-      "A clean template developed with HTML and CSS focusing on layout and design practice.",
-    technologies: ["HTML", "CSS"],
-    demoLink: "https://hazemalmili.github.io/Kasper-Template-Two/",
-    codeLink: "https://github.com/HazemAlMili/Kasper-Template-Two",
-    image: "/kasper.png",
-  },
-  {
-    title: "Elzero Web",
-    description:
-      "A front-end template inspired by Elzero Web School projects, created with HTML and CSS.",
-    technologies: ["HTML", "CSS"],
-    demoLink: "https://hazemalmili.github.io/Elzero-Template-4/",
-    codeLink: "https://github.com/HazemAlMili/Elzero-Template-4",
-    image: "/elzero.png",
-  },
-  {
-    title: "Bootstrap Design 1",
-    description:
-      "A design-focused project built with HTML, CSS, and Bootstrap to practice responsive layouts.",
-    technologies: ["HTML", "CSS", "Bootstrap"],
-    demoLink: "https://hazemalmili.github.io/Bootstrap-Design-1/",
-    codeLink: "https://github.com/HazemAlMili/Bootstrap-Design-1",
-    image: "/bondi.png",
-  },
-  {
     title: "Enactus Final Project (Puresha)",
     description:
       "A complete front-end project for Enactus built with HTML, CSS, JavaScript, and Bootstrap.",
@@ -103,4 +67,14 @@ export const projects = [
     codeLink: "https://github.com/mohamedabuzahda/Real-State",
     image: "/real-estate.png",
   },
+  {
+  title: "Enactus Portal",
+  description:
+    "A full-stack management system for Enactus organization members. Optimized for tracking tasks, rewarding XP, and managing departmental leaderboards with role-based access control.",
+  technologies: ["Next.js", "MongoDB", "Mongoose", "TailwindCSS", "Node.js"],
+  demoLink: "https://enactus-portal.vercel.app/",
+  codeLink: "https://github.com/HazemAlMili/enactus-portal", 
+  image: "/overview.png",
+}
 ];
+
