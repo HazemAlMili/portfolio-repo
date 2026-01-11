@@ -63,16 +63,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 0.5rem;
     background: none;
     border: none;
     cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+
 .logo-img {
-    height: fit-content;
-    padding-top: 20px;
-    margin: auto 0;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 .nav-links {

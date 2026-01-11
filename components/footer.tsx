@@ -22,7 +22,7 @@ function Footer() {
             style={{ textAlign: "center" }}
           >
             <Image
-              src="/logo-22.svg"
+              src="/Logo.png"
               alt="Hazem-Logo"
               className="logo-img"
               width={200}

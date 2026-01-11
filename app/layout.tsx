@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
+import PageLoader from "@/components/PageLoader";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     images: ["https://portfolio-repo-pearl.vercel.app/images/Hero.png"],
   },
   icons: {
-    icon: ["/icon.png"],
+    icon: ["/Logo.png"],
   },
 };
 
@@ -64,10 +65,11 @@ export default function RootLayout({
               (function() {
                 const theme = localStorage.getItem('theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (theme === 'dark' || (!theme && prefersDark)) {
-                  document.documentElement.classList.add('dark');
-                } else {
+                // Default to dark mode to show the new banner-matching theme
+                if (theme === 'light') {
                   document.documentElement.classList.remove('dark');
+                } else {
+                  document.documentElement.classList.add('dark');
                 }
               })();
             `,
@@ -98,7 +100,10 @@ export default function RootLayout({
         />
         <meta name="twitter:card" content="summary_large_image" />
       </head>
-      <body className="font-serif antialiased">{children}</body>
+      <body className="font-serif antialiased">
+        <PageLoader />
+        {children}
+      </body>
     </html>
   );
 }

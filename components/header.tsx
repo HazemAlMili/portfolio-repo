@@ -91,11 +91,12 @@ function Header() {
           {/* Logo */}
           <button onClick={() => scrollToSection("home")} className="logo">
             <Image
-              src="/logo-22.svg"
+              src="/Logo.png"
               alt="Hazem-Logo"
               className="logo-img"
-              width={200}
-              height={200}
+              width={150}
+              height={150}
+              priority
             />
           </button>
 
