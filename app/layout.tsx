@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import PageLoader from "@/components/PageLoader";
+import CircuitBackground from "@/components/CircuitBackground";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -101,6 +102,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
       </head>
       <body className="font-serif antialiased">
+        <CircuitBackground />
         <PageLoader />
         {children}
       </body>
