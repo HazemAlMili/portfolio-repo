@@ -1,6 +1,6 @@
 export const personalInfo = {
   name: "Hazem Al-Melli",
-  titles: ["Web Developer", "Front-End Developer"],
+  titles: ["Web Developer"],
   email: "hazemalmili77@gmail.com",
   phone: "01091175339", // Update with your actual phone number
   location: "Cairo, Egypt", // Update with your actual location
@@ -21,6 +21,9 @@ import {
   SiTypescript,
   SiTailwindcss,
   SiBootstrap,
+  SiNodedotjs,
+  SiMongodb,
+  SiExpress,
 } from 'react-icons/si';
 import { IconType } from 'react-icons';
 
@@ -39,6 +42,9 @@ export const skills: Skill[] = [
   { name: "TypeScript", icon: SiTypescript, category: "Frontend" },
   { name: "Tailwind CSS", icon: SiTailwindcss, category: "Frontend" },
   { name: "Bootstrap", icon: SiBootstrap, category: "Frontend" },
+  { name: "Node.js", icon: SiNodedotjs, category: "Backend" },
+  { name: "MongoDB", icon: SiMongodb, category: "Backend" },
+  { name: "Express.js", icon: SiExpress, category: "Backend" },
 ];
 
 export const features = [
@@ -73,6 +79,12 @@ export const projects = [
     title: "Enactus Final Project (Puresha)",
     description:
       "A complete front-end project for Enactus built with HTML, CSS, JavaScript, and Bootstrap.",
+    role: "Frontend Developer",
+    responsibilities: [
+      "built all UI components",
+      "Implemented responsive layouts",
+      "Created interactive features with vanilla JavaScript"
+    ],
     technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     demoLink: "https://hazemalmili.github.io/Puresha/",
     codeLink: "https://github.com/HazemAlMili/final-project",
@@ -82,19 +94,31 @@ export const projects = [
     title: "GDG Final Project (Real Estate)",
     description:
       "A real estate website project built with HTML, CSS, JavaScript, Bootstrap, and ReactJS.",
+    role: "Frontend Developer (Team Project)",
+    responsibilities: [
+      "Developed property listing components", 
+      "Implemented search and filter functionality",
+      "Collaborated with team on React architecture"
+    ],
     technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "ReactJS"],
     demoLink: "https://mohamedabuzahda.github.io/Real-State/",
     codeLink: "https://github.com/mohamedabuzahda/Real-State",
     image: "/real-estate.png",
   },
   {
-  title: "Enactus Portal",
-  description:
-    "A full-stack management system for Enactus organization members. Optimized for tracking tasks, rewarding XP, and managing departmental leaderboards with role-based access control.",
-  technologies: ["Next.js", "MongoDB", "Mongoose", "TailwindCSS", "Node.js"],
-  demoLink: "https://enactus-portal.vercel.app/",
-  codeLink: "https://github.com/HazemAlMili/enactus-portal", 
-  image: "/overview.png",
-}
+    title: "Enactus Portal",
+    description:
+      "A full-stack management system for Enactus organization members. Optimized for tracking tasks, rewarding XP, and managing departmental leaderboards with role-based access control.",
+    role: "Full-Stack Developer & Project Lead",
+    responsibilities: [
+      "Architected and built entire application",
+      "Designed database schema with MongoDB",
+      "Implemented authentication and role-based access",
+      "Created admin dashboard and leaderboard system"
+    ],
+    technologies: ["Next.js", "MongoDB", "Mongoose", "TailwindCSS", "Node.js"],
+    demoLink: "https://enactus-portal.vercel.app/",
+    codeLink: "https://github.com/HazemAlMili/enactus-portal", 
+    image: "/overview.png",
+  }
 ];
-

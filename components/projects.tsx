@@ -47,6 +47,57 @@ function Projects() {
                   <h3 className="project-title">{project.title}</h3>
                   <p className="project-description">{project.description}</p>
 
+                  {/* My Role Badge */}
+                  {project.role && (
+                    <div style={{ marginTop: '1rem', marginBottom: '0.75rem' }}>
+                      <span 
+                        className="role-badge"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          padding: '0.5rem 1rem',
+                          backgroundColor: 'var(--accent)',
+                          color: 'var(--accent-foreground)',
+                          borderRadius: '0.5rem',
+                          fontSize: '0.875rem',
+                          fontWeight: '600',
+                          border: '1px solid var(--border)',
+                        }}
+                      >
+                        <span>👤</span>
+                        {project.role}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Key Responsibilities */}
+                  {project.responsibilities && project.responsibilities.length > 0 && (
+                    <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                      <h4 style={{
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        color: 'var(--foreground)',
+                        marginBottom: '0.5rem',
+                      }}>
+                        Key Contributions:
+                      </h4>
+                      <ul style={{
+                        margin: 0,
+                        paddingLeft: '1.25rem',
+                        fontSize: '0.875rem',
+                        color: 'var(--muted-foreground)',
+                        lineHeight: '1.6',
+                      }}>
+                        {project.responsibilities.map((responsibility, idx) => (
+                          <li key={idx} style={{ marginBottom: '0.25rem' }}>
+                            {responsibility}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
                   {/* Technologies */}
                   <div className="project-tech">
                     {project.technologies.map((tech) => (
