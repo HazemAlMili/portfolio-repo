@@ -120,7 +120,7 @@ export const metadata: Metadata = {
 
   // verification (Add these tokens when you verify your site)
   verification: {
-    google: "your-google-verification-code", // Replace with actual code from Google Search Console
+    google: "1f4ac51d03ae467c", // Google Search Console verification
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
   },
