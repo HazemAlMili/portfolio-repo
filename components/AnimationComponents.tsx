@@ -31,7 +31,7 @@ export function StaggerContainer({ children, className = '', staggerDelay = 0.1 
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-100px' as any }}
+      viewport={{ once: true, margin: '-100px 0px -100px 0px' }}
     >
       {children}
     </motion.div>
@@ -82,7 +82,7 @@ export function StaggerItem({ children, className = '', direction = 'up', distan
       variants={itemVariants}
       transition={{
         duration: 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as any,
+        ease: [0.25, 0.4, 0.25, 1],
       }}
     >
       {children}
