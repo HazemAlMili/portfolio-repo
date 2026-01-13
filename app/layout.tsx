@@ -20,35 +20,120 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Hazem Al-Melli | Front-End Developer",
+  // Basic Metadata
+  title: {
+    default: "Hazem Al-Melli | Front-End Developer & React Specialist",
+    template: "%s | Hazem Al-Melli",
+  },
   description:
-    "Portfolio showcasing modern, responsive web projects built with React & Next.js.",
+    "Experienced Front-End Developer specializing in React, Next.js, and TypeScript. Building modern, responsive web applications with clean code and exceptional user experiences. Based in Cairo, Egypt.",
+  
+  // Keywords for SEO
+  keywords: [
+    "Front-End Developer",
+    "React Developer",
+    "Next.js Developer",
+    "TypeScript Developer",
+    "Web Developer Cairo",
+    "JavaScript Developer",
+    "UI/UX Developer",
+    "Responsive Web Design",
+    "Modern Web Development",
+    "Hazem Al-Melli",
+    "Portfolio",
+    "HTML5",
+    "CSS3",
+    "Tailwind CSS",
+    "Bootstrap",
+  ],
+
+  // Authors
+  authors: [
+    {
+      name: "Hazem Al-Melli",
+      url: "https://hazemalmelli.vercel.app",
+    },
+  ],
+
+  // Creator
+  creator: "Hazem Al-Melli",
+
+  // Publisher
+  publisher: "Hazem Al-Melli",
+
+  // Robots
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  // Open Graph (Facebook, LinkedIn, etc.)
   openGraph: {
-    title: "Hazem Al-Melli | Front-End Developer",
+    type: "website",
+    locale: "en_US",
+    url: "https://hazemalmelli.vercel.app/",
+    siteName: "Hazem Al-Melli - Front-End Developer Portfolio",
+    title: "Hazem Al-Melli | Front-End Developer & React Specialist",
     description:
-      "Portfolio showcasing modern, responsive web projects built with React & Next.js.",
-    url: "https://portfolio-repo-pearl.vercel.app/",
-    siteName: "Hazem Al-Melli Portfolio",
+      "Experienced Front-End Developer specializing in React, Next.js, and TypeScript. Explore my portfolio of modern web applications and cutting-edge projects. Available for freelance and full-time opportunities.",
     images: [
       {
-        url: "https://portfolio-repo-pearl.vercel.app/images/Hero.png",
+        url: "https://hazemalmelli.vercel.app/api/og",
         width: 1200,
         height: 630,
-        alt: "Hazem Al-Melli Portfolio Preview",
+        alt: "Hazem Al-Melli - Front-End Developer Portfolio",
+        type: "image/png",
       },
     ],
-    locale: "en_US",
-    type: "website",
   },
+
+  // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "Hazem Al-Melli | Front-End Developer",
+    title: "Hazem Al-Melli | Front-End Developer & React Specialist",
     description:
-      "Portfolio showcasing modern, responsive web projects built with React & Next.js.",
-    images: ["https://portfolio-repo-pearl.vercel.app/images/Hero.png"],
+      "Experienced Front-End Developer building modern web applications with React, Next.js & TypeScript. Check out my portfolio and latest projects!",
+    creator: "@hazem_almelli", // Update with your Twitter handle if you have one
+    images: ["https://hazemalmelli.vercel.app/api/og"],
   },
+
+  // Icons & Manifest
   icons: {
-    icon: ["/Logo.png"],
+    icon: [
+      { url: "/icon.png", sizes: "any" },
+      { url: "/Logo.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/Logo.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+
+  // Manifest
+  manifest: "/manifest.json",
+
+  // verification (Add these tokens when you verify your site)
+  verification: {
+    google: "your-google-verification-code", // Replace with actual code from Google Search Console
+    // yandex: "your-yandex-verification-code",
+    // bing: "your-bing-verification-code",
+  },
+
+  // Category
+  category: "technology",
+
+  // Additional metadata
+  metadataBase: new URL("https://hazemalmelli.vercel.app"),
+  
+  // Alternate languages (if you support multiple languages)
+  alternates: {
+    canonical: "https://hazemalmelli.vercel.app",
   },
 };
 
@@ -82,24 +167,6 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <meta name="author" content="[Hazem Al-Melli]"></meta>
-        <meta
-          property="og:title"
-          content="Hazem Al-Melli | Front-End Developer Portfolio"
-        />
-        <meta
-          property="og:description"
-          content="Check out my portfolio showcasing modern, responsive web projects built with React & Next.js."
-        />
-        <meta
-          property="og:image"
-          content="https://portfolio-repo-pearl.vercel.app/images/Hero.png"
-        />
-        <meta
-          property="og:url"
-          content="https://portfolio-repo-pearl.vercel.app/"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
       </head>
       <body className="font-serif antialiased">
         <CircuitBackground />

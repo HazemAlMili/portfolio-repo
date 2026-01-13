@@ -37,23 +37,55 @@ const CircuitBackground: React.FC = () => {
   const isVisibleRef = useRef<boolean>(true);
   const lastFrameTimeRef = useRef<number>(0);
   const [isClient, setIsClient] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   // Performance settings based on device
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const targetFPS = 60;
   const frameInterval = 1000 / targetFPS;
 
-  // Color palette matching the reference image
-  const colors = {
-    trace: '#4a6b8a',      // Light blue-gray for traces
-    traceLight: '#6b8caf', // Lighter variant
-    node: '#d4a574',       // Golden nodes
-    nodeGlow: '#ffd700',   // Bright gold glow
-    packet: '#ffa500',     // Orange-gold packets
+  // Color palette based on theme
+  const getColors = (isDark: boolean) => {
+    if (isDark) {
+      return {
+        trace: '#4a6b8a',      // Light blue-gray for traces
+        traceLight: '#6b8caf', // Lighter variant
+        node: '#d4a574',       // Golden nodes
+        nodeGlow: '#ffd700',   // Bright gold glow
+        packet: '#ffa500',     // Orange-gold packets
+      };
+    } else {
+      return {
+        trace: '#5a7a9a',      // Darker blue-gray for traces in light mode
+        traceLight: '#7a9abf', // Darker variant for light mode
+        node: '#b48654',       // Darker golden nodes
+        nodeGlow: '#c9a000',   // Darker gold glow
+        packet: '#d08500',     // Darker orange-gold packets
+      };
+    }
   };
+
+  const colors = getColors(isDarkMode);
 
   useEffect(() => {
     setIsClient(true);
+    
+    // Check initial theme
+    const checkTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(isDark);
+    };
+    
+    checkTheme();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -475,7 +507,7 @@ const CircuitBackground: React.FC = () => {
       }
       pointCache.clear();
     };
-  }, [isClient, isMobile]);
+  }, [isClient, isMobile, isDarkMode, colors]);
 
   if (!isClient) {
     return null;

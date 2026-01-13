@@ -57,31 +57,35 @@ function About() {
                 </p>
               </div>
 
-              {/* Skills Progress Bars */}
+              {/* Skills Grid Cards */}
               <div className="skills-section">
-                <h3>Technical Skills</h3>
-                {skills.map((skill, index) => (
-                  <div key={skill.name} className="skill-item">
-                    <div className="skill-header">
-                      <span className="skill-name">{skill.name}</span>
-                      <span className="skill-percentage">{skill.level}%</span>
-                    </div>
-                    <div className="skill-bar">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Technical Skills</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {skills.map((skill, index) => {
+                    const IconComponent = skill.icon;
+                    return (
                       <ScrollReveal
-                        className="skill-progress"
+                        key={skill.name}
                         delay={index * 100}
-                        style={{
-                          width: `${skill.level}%`,
-                          height: "100%",
-                          backgroundColor: "var(--accent)",
-                          borderRadius: "4px",
-                        }}
                       >
-                        {/* Empty content for the bar itself, ScrollReveal handles the animation */}
+                        <div className="group relative bg-card border border-border rounded-lg p-6 transition-all duration-300 hover:scale-105 hover:border-accent hover:shadow-lg hover:shadow-accent/20 flex flex-col items-center justify-center gap-3 min-h-[140px]">
+                          {/* Icon */}
+                          <div className="text-accent transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                            <IconComponent size={40} />
+                          </div>
+                          
+                          {/* Skill Name */}
+                          <h4 className="text-sm font-semibold text-foreground text-center leading-tight">
+                            {skill.name}
+                          </h4>
+                          
+                          {/* Decorative accent line */}
+                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-lg" />
+                        </div>
                       </ScrollReveal>
-                    </div>
-                  </div>
-                ))}
+                    );
+                  })}
+                </div>
               </div>
             </div>
 

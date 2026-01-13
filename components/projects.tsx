@@ -63,6 +63,7 @@ function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-primary btn-sm"
+                      style={{ border: "2px solid #000000ff" }}
                     >
                       <span style={{ marginRight: "0.5rem" }}>🔗</span>
                       Demo

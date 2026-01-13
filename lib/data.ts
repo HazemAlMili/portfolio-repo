@@ -12,13 +12,33 @@ export const personalInfo = {
   },
 };
 
-export const skills = [
-  { name: "HTML", level: 95 },
-  { name: "CSS", level: 90 },
-  { name: "JavaScript", level: 85 },
-  { name: "React", level: 80 },
-  { name: "Bootstrap", level: 88 },
-  { name: "Responsive Design", level: 92 },
+import { 
+  SiHtml5,
+  SiCss3, 
+  SiJavascript, 
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiBootstrap,
+} from 'react-icons/si';
+import { IconType } from 'react-icons';
+
+export interface Skill {
+  name: string;
+  icon: IconType;
+  category?: string;
+}
+
+export const skills: Skill[] = [
+  { name: "HTML5", icon: SiHtml5, category: "Frontend" },
+  { name: "CSS3", icon: SiCss3, category: "Frontend" },
+  { name: "JavaScript", icon: SiJavascript, category: "Frontend" },
+  { name: "React", icon: SiReact, category: "Frontend" },
+  { name: "Next.js", icon: SiNextdotjs, category: "Frontend" },
+  { name: "TypeScript", icon: SiTypescript, category: "Frontend" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, category: "Frontend" },
+  { name: "Bootstrap", icon: SiBootstrap, category: "Frontend" },
 ];
 
 export const features = [

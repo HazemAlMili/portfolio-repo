@@ -66,6 +66,32 @@ export default function Hero() {
               >
                 View My Work
               </button>
+              
+              {/* Download CV Button */}
+              <a
+                href="/Hazem_AlMelli_CV.pdf"
+                download="Hazem_AlMelli_CV.pdf"
+                className="btn btn-outline btn-lg inline-flex items-center gap-2 group"
+                aria-label="Download CV"
+              >
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  className="transition-transform duration-300 group-hover:translate-y-1"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Download CV
+              </a>
+              
               <button
                 onClick={() => scrollToSection("contact")}
                 className="btn btn-outline btn-lg"
