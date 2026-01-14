@@ -10,36 +10,59 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0rem;
+    /* Space between logo and social links */
+}
+
+.footer-content .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .footer-content .logo-img {
-    margin-bottom: -30px;
+    margin: 0;
+    /* Remove any margins */
 }
 
-
-.footer-social {
+/* Social Links - Both classes for compatibility */
+.footer-social,
+.social-links {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 1.5rem;
+    margin: 0;
+    /* Centered, no extra margin */
 }
 
-.footer-social a {
+.footer-social a,
+.social-links a {
     color: var(--primary-foreground);
     opacity: 0.8;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.footer-social a:hover {
+.footer-social a:hover,
+.social-links a:hover {
     opacity: 1;
+    transform: scale(1.1);
 }
 
 .footer-copyright {
     opacity: 0.6;
     font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
+    margin-top: 2rem;
+    /* Space from social links */
+    text-align: center;
+}
+
+.footer-copyright p {
+    margin: 0;
 }
 
 
@@ -139,4 +162,3 @@
 .scroll-reveal.delay-3 {
     transition-delay: 0.3s;
 }
-
