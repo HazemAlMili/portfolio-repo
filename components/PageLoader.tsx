@@ -45,7 +45,7 @@ export default function PageLoader() {
   if (!isLoading) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#000000] transition-opacity duration-700"
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background transition-opacity duration-700"
          style={{ opacity: isLoading ? 1 : 0 }}>
       
       {/* Animated Circuit Board Background */}
@@ -55,7 +55,7 @@ export default function PageLoader() {
           {[...Array(8)].map((_, i) => (
             <div
               key={`h-${i}`}
-              className="absolute h-[1px] bg-gradient-to-r from-transparent via-[#ffffff] to-transparent"
+              className="absolute h-[1px] bg-gradient-to-r from-transparent via-foreground to-transparent"
               style={{
                 top: `${(i + 1) * 12.5}%`,
                 left: 0,
@@ -69,7 +69,7 @@ export default function PageLoader() {
           {[...Array(8)].map((_, i) => (
             <div
               key={`v-${i}`}
-              className="absolute w-[1px] bg-gradient-to-b from-transparent via-[#8892a6] to-transparent"
+              className="absolute w-[1px] bg-gradient-to-b from-transparent via-muted-foreground to-transparent"
               style={{
                 left: `${(i + 1) * 12.5}%`,
                 top: 0,
@@ -87,7 +87,7 @@ export default function PageLoader() {
         {[...Array(20)].map((_, i) => (
           <div
             key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-[#ffffff] rounded-full"
+            className="absolute w-1 h-1 bg-foreground rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -105,40 +105,40 @@ export default function PageLoader() {
         {/* Hexagon Spinner Container */}
         <div className="relative w-24 h-24">
           {/* Outer rotating ring */}
-          <div className="absolute inset-0 rounded-full border-2 border-[#1e2738]"></div>
-          <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-[#ffffff] border-r-[#ffffff] animate-spin"></div>
+          <div className="absolute inset-0 rounded-full border-2 border-muted"></div>
+          <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-foreground border-r-foreground animate-spin"></div>
           
           {/* Inner pulsing circle */}
-          <div className="absolute inset-4 rounded-full bg-[#ffffff] opacity-20 animate-pulse"></div>
+          <div className="absolute inset-4 rounded-full bg-foreground opacity-20 animate-pulse"></div>
           
           {/* Center dot */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-3 h-3 bg-[#ffffff] rounded-full animate-ping"></div>
-            <div className="absolute w-2 h-2 bg-[#ffffff] rounded-full"></div>
+            <div className="w-3 h-3 bg-foreground rounded-full animate-ping"></div>
+            <div className="absolute w-2 h-2 bg-foreground rounded-full"></div>
           </div>
         </div>
 
         {/* Progress Bar */}
         <div className="w-64 space-y-3">
-          <div className="relative h-1 bg-[#1e2738] rounded-full overflow-hidden">
+          <div className="relative h-1 bg-muted rounded-full overflow-hidden">
             <div
-              className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#e0e0e0] via-[#ffffff] to-[#e0e0e0] rounded-full transition-all duration-300 ease-out"
+              className="absolute left-0 top-0 h-full bg-gradient-to-r from-muted via-foreground to-muted rounded-full transition-all duration-300 ease-out"
               style={{ width: `${progress}%` }}
             >
               {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-shimmer"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background to-transparent opacity-30 animate-shimmer"></div>
             </div>
           </div>
           
           {/* Loading Text with Typing Effect */}
           <div className="flex items-center justify-between text-sm">
-            <span className="text-[#b0b0b0] font-mono typing-text">
+            <span className="text-muted-foreground font-mono typing-text">
               {progress < 30 && 'Initializing...'}
               {progress >= 30 && progress < 60 && 'Loading Components...'}
               {progress >= 60 && progress < 90 && 'Almost There...'}
               {progress >= 90 && 'Ready!'}
             </span>
-            <span className="text-[#ffffff] font-mono font-bold">
+            <span className="text-foreground font-mono font-bold">
               {progress}%
             </span>
           </div>

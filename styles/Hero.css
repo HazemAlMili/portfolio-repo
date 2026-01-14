@@ -4,11 +4,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* background: radial-gradient(circle at 50% 50%, var(--background) 0%, var(--muted) 100%); */
     background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite;
+    animation: gradientShift 10s ease infinite;
     position: relative;
     overflow: hidden;
     padding: 2rem 1rem;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .hero-layout {
