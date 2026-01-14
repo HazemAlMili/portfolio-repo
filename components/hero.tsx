@@ -69,8 +69,8 @@ export default function Hero() {
               
               {/* Download CV Button */}
               <a
-                href="/Hazem_AlMelli_CV.pdf"
-                download="Hazem_AlMelli_CV.pdf"
+                href="/Hazem-Mahmoud-Al-Melli's-CV.pdf"
+                download="Hazem-Mahmoud-Al-Melli's-CV.pdf"
                 className="btn btn-outline btn-lg inline-flex items-center gap-2 group"
                 aria-label="Download CV"
               >
