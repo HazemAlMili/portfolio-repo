@@ -149,7 +149,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Added animated background elements */
+/* Added animated background elements - GPU Optimized */
 body::before {
   content: "";
   position: fixed;
@@ -162,6 +162,11 @@ body::before {
     radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
   animation: backgroundFloat 20s ease-in-out infinite;
   z-index: -2;
+
+  /* GPU Acceleration */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 body::after {
@@ -175,36 +180,63 @@ body::after {
   background-size: 50px 50px;
   animation: particleFloat 30s linear infinite;
   z-index: -1;
+
+  /* GPU Acceleration */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 body::selection {
   background-color: #27272a;
 }
 
+/* GPU-optimized animations - use translate3d */
 @keyframes backgroundFloat {
 
   0%,
   100% {
-    transform: translateX(0) translateY(0) rotate(0deg);
+    transform: translate3d(0, 0, 0);
   }
 
   33% {
-    transform: translateX(-30px) translateY(-50px) rotate(120deg);
+    transform: translate3d(-30px, -50px, 0);
   }
 
   66% {
-    transform: translateX(30px) translateY(-30px) rotate(240deg);
+    transform: translate3d(30px, -30px, 0);
   }
 }
 
 @keyframes particleFloat {
   0% {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 
   100% {
-    transform: translateY(-100px);
+    transform: translate3d(0, -100px, 0);
   }
+}
+
+/* Disable expensive animations on mobile */
+@media (max-width: 768px) {
+
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+}
+
+/* ScrollReveal CSS class - GPU accelerated */
+.scroll-reveal {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in-up {
+  transform: translate3d(0, 0, 0);
 }
 
 /* Added floating geometric shapes */
@@ -400,8 +432,10 @@ p {
 
 .card:hover {
   border-color: var(--accent);
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.2);
+  /* GPU-optimized transform */
+  transform: translate3d(0, -5px, 0) scale(1.02);
+  /* Simplified shadow for mobile performance */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .card-header {
@@ -536,4 +570,77 @@ p {
   .container {
     padding: 0 4rem;
   }
+}
+
+/* ============================================================================
+   SKELETON LOADERS - For code-split Suspense fallbacks
+   ============================================================================ */
+.section-skeleton {
+  min-height: 400px;
+  background: linear-gradient(90deg,
+      var(--muted) 0%,
+      var(--card) 50%,
+      var(--muted) 100%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: var(--radius);
+  margin: 2rem 0;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================================================
+   THEME TRANSITION FIX - Prevent flickering during theme toggle
+   ============================================================================ */
+
+/* Disable ALL transitions and animations during theme change */
+.no-transition,
+.no-transition *,
+.no-transition *::before,
+.no-transition *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+
+  /* Force GPU layer during theme change to prevent repaints */
+  body.no-transition {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: auto;
+  }
+
+  /* Hide expensive canvas animations during toggle */
+  .no-transition .circuit-canvas,
+  .no-transition .circuit-background {
+    opacity: 0 !important;
+  }
+
+  /* Pause background animations */
+  .no-transition body::before,
+  .no-transition body::after {
+    animation-play-state: paused !important;
+  }
+}
+
+/* Smooth theme transitions when enabled */
+html:not(.no-transition) {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html:not(.no-transition) * {
+  transition-property: background-color, color, border-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }

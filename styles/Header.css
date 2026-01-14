@@ -62,8 +62,12 @@
 .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
+    justify-content: flex-start;
+    /* Changed from center to flex-start */
+    padding: 0.25rem;
+    /* Reduced from 0.5rem */
+    margin-left: -1rem;
+    /* Move it left */
     background: none;
     border: none;
     cursor: pointer;
@@ -72,9 +76,27 @@
 
 
 .logo-img {
-    width: auto;
+    width: 170px;
+    margin-left: -2rem;
+    /* Reduced from auto to fixed smaller size */
     height: auto;
     object-fit: contain;
+    max-width: 170px;
+    /* Ensure it doesn't grow larger */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .logo {
+        margin-left: -0.25rem;
+        /* Less margin on mobile */
+    }
+
+    .logo-img {
+        width: 130px;
+        /* Even smaller on mobile */
+        max-width: 130px;
+    }
 }
 
 .nav-links {

@@ -1,9 +1,16 @@
 import type React from "react";
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
-import PageLoader from "@/components/PageLoader";
-import CircuitBackground from "@/components/CircuitBackground";
+
+// ============================================================================
+// LAZY LOAD HEAVY COMPONENTS
+// ============================================================================
+
+// These are client components ('use client'), so they won't SSR anyway
+const PageLoader = dynamic(() => import("@/components/PageLoader"));
+const CircuitBackground = dynamic(() => import("@/components/CircuitBackground"));
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -145,18 +152,32 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
       <head>
+        {/* Blocking theme script - Prevents FOUC and flickering */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                // Prevent transitions during initial theme application
+                document.documentElement.classList.add('no-transition');
+                
+                // Determine theme
                 const theme = localStorage.getItem('theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                // Default to dark mode to show the new banner-matching theme
-                if (theme === 'light') {
-                  document.documentElement.classList.remove('dark');
-                } else {
+                const isDark = theme ? theme === 'dark' : prefersDark;
+                
+                // Apply theme immediately
+                if (isDark) {
                   document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
                 }
+                
+                // Re-enable transitions after paint (double RAF ensures paint completes)
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    document.documentElement.classList.remove('no-transition');
+                  });
+                });
               })();
             `,
           }}

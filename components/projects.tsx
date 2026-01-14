@@ -1,148 +1,219 @@
 "use client";
 
+import { useMemo } from "react";
 import Image from "next/image";
 import { projects, personalInfo } from "@/lib/data";
 import ScrollReveal from "./ScrollReveal";
 import "../styles/Projects.css";
 
+// ============================================================================
+// CONSTANTS - Extracted to prevent recreation on every render
+// ============================================================================
+
+const HEADER_STYLES = {
+  textAlign: "center" as const,
+  marginBottom: "4rem",
+};
+
+const DESCRIPTION_STYLES = {
+  fontSize: "1.125rem",
+  color: "var(--muted-foreground)",
+  maxWidth: "32rem",
+  margin: "0 auto",
+} as const;
+
+const IMAGE_CONTAINER_STYLES = {
+  position: "relative" as const,
+} as const;
+
+const ROLE_CONTAINER_STYLES = {
+  marginTop: "1rem",
+  marginBottom: "0.75rem",
+} as const;
+
+const ROLE_BADGE_STYLES = {
+  display: "inline-flex" as const,
+  alignItems: "center" as const,
+  gap: "0.5rem",
+  padding: "0.5rem 1rem",
+  backgroundColor: "var(--accent)",
+  color: "var(--accent-foreground)",
+  borderRadius: "0.5rem",
+  fontSize: "0.875rem",
+  fontWeight: "600" as const,
+  border: "1px solid var(--border)",
+} as const;
+
+const RESPONSIBILITIES_CONTAINER_STYLES = {
+  marginTop: "1rem",
+  marginBottom: "1rem",
+} as const;
+
+const RESPONSIBILITIES_HEADING_STYLES = {
+  fontSize: "0.875rem",
+  fontWeight: "600" as const,
+  color: "var(--foreground)",
+  marginBottom: "0.5rem",
+} as const;
+
+const RESPONSIBILITIES_LIST_STYLES = {
+  margin: 0,
+  paddingLeft: "1.25rem",
+  fontSize: "0.875rem",
+  color: "var(--muted-foreground)",
+  lineHeight: "1.6",
+} as const;
+
+const LIST_ITEM_STYLES = {
+  marginBottom: "0.25rem",
+} as const;
+
+const DEMO_LINK_STYLES = {
+  border: "2px solid #000000ff",
+} as const;
+
+const ICON_STYLES = {
+  marginRight: "0.5rem",
+} as const;
+
+const CTA_CONTAINER_STYLES = {
+  textAlign: "center" as const,
+  marginTop: "4rem",
+};
+
+const CTA_TEXT_STYLES = {
+  color: "var(--muted-foreground)",
+  marginBottom: "1.5rem",
+} as const;
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
+
 function Projects() {
+  // Memoize project cards to prevent recreation on every render
+  const projectCards = useMemo(
+    () =>
+      projects.map((project, index) => {
+        // Load first 3 images with priority, rest lazy
+        const isPriority = index < 3;
+
+        return (
+          <ScrollReveal
+            key={project.title}
+            className="project-card"
+            delay={index * 150}
+          >
+            <div className="project-image" style={IMAGE_CONTAINER_STYLES}>
+              <Image
+                src={project.image}
+                alt={`${project.title} - ${project.description}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                style={{ objectFit: "cover" }}
+                priority={isPriority}
+                loading={isPriority ? "eager" : "lazy"}
+                quality={85}
+              />
+            </div>
+
+            <div className="project-content">
+              <h3 className="project-title">{project.title}</h3>
+              <p className="project-description">{project.description}</p>
+
+              {/* My Role Badge */}
+              {project.role && (
+                <div style={ROLE_CONTAINER_STYLES}>
+                  <span className="role-badge" style={ROLE_BADGE_STYLES}>
+                    <span role="img" aria-label="Role">
+                      👤
+                    </span>
+                    {project.role}
+                  </span>
+                </div>
+              )}
+
+              {/* Key Responsibilities */}
+              {project.responsibilities &&
+                project.responsibilities.length > 0 && (
+                  <div style={RESPONSIBILITIES_CONTAINER_STYLES}>
+                    <h4 style={RESPONSIBILITIES_HEADING_STYLES}>
+                      Key Contributions:
+                    </h4>
+                    <ul style={RESPONSIBILITIES_LIST_STYLES}>
+                      {project.responsibilities.map((responsibility, idx) => (
+                        <li key={idx} style={LIST_ITEM_STYLES}>
+                          {responsibility}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+              {/* Technologies */}
+              <div className="project-tech">
+                {project.technologies.map((tech) => (
+                  <span key={tech} className="tech-tag">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Project Links */}
+              <div className="project-links">
+                <a
+                  href={project.demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-sm"
+                  style={DEMO_LINK_STYLES}
+                  aria-label={`View ${project.title} demo`}
+                >
+                  <span style={ICON_STYLES} role="img" aria-label="Link">
+                    🔗
+                  </span>
+                  Demo
+                </a>
+
+                <a
+                  href={project.codeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline btn-sm"
+                  aria-label={`View ${project.title} source code`}
+                >
+                  <span style={ICON_STYLES} role="img" aria-label="Code">
+                    💻
+                  </span>
+                  Code
+                </a>
+              </div>
+            </div>
+          </ScrollReveal>
+        );
+      }),
+    [] // Projects from lib/data are static, no dependencies needed
+  );
+
   return (
     <section id="projects" className="section">
       <div className="container">
         <ScrollReveal>
           {/* Section Header */}
-          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+          <div style={HEADER_STYLES}>
             <h2 className="section-title">My Projects</h2>
-            <p
-              style={{
-                fontSize: "1.125rem",
-                color: "var(--muted-foreground)",
-                maxWidth: "32rem",
-                margin: "0 auto",
-              }}
-            >
+            <p style={DESCRIPTION_STYLES}>
               Here are some of the projects I have worked on, showcasing my
               skills in front-end development and modern web technologies.
             </p>
           </div>
 
           {/* Projects Grid */}
-          <div className="projects-grid">
-            {projects.map((project, index) => (
-              <ScrollReveal
-                key={project.title}
-                className="project-card"
-                delay={index * 150}
-              >
-                <div className="project-image" style={{ position: "relative" }}>
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-
-                <div className="project-content">
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
-
-                  {/* My Role Badge */}
-                  {project.role && (
-                    <div style={{ marginTop: '1rem', marginBottom: '0.75rem' }}>
-                      <span 
-                        className="role-badge"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          padding: '0.5rem 1rem',
-                          backgroundColor: 'var(--accent)',
-                          color: 'var(--accent-foreground)',
-                          borderRadius: '0.5rem',
-                          fontSize: '0.875rem',
-                          fontWeight: '600',
-                          border: '1px solid var(--border)',
-                        }}
-                      >
-                        <span>👤</span>
-                        {project.role}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Key Responsibilities */}
-                  {project.responsibilities && project.responsibilities.length > 0 && (
-                    <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                      <h4 style={{
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
-                        color: 'var(--foreground)',
-                        marginBottom: '0.5rem',
-                      }}>
-                        Key Contributions:
-                      </h4>
-                      <ul style={{
-                        margin: 0,
-                        paddingLeft: '1.25rem',
-                        fontSize: '0.875rem',
-                        color: 'var(--muted-foreground)',
-                        lineHeight: '1.6',
-                      }}>
-                        {project.responsibilities.map((responsibility, idx) => (
-                          <li key={idx} style={{ marginBottom: '0.25rem' }}>
-                            {responsibility}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Technologies */}
-                  <div className="project-tech">
-                    {project.technologies.map((tech) => (
-                      <span key={tech} className="tech-tag">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Project Links */}
-                  <div className="project-links">
-                    <a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary btn-sm"
-                      style={{ border: "2px solid #000000ff" }}
-                    >
-                      <span style={{ marginRight: "0.5rem" }}>🔗</span>
-                      Demo
-                    </a>
-
-                    <a
-                      href={project.codeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-outline btn-sm"
-                    >
-                      <span style={{ marginRight: "0.5rem" }}>💻</span>
-                      Code
-                    </a>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <div className="projects-grid">{projectCards}</div>
 
           {/* Call to Action */}
-          <div style={{ textAlign: "center", marginTop: "4rem" }}>
-            <p
-              style={{
-                color: "var(--muted-foreground)",
-                marginBottom: "1.5rem",
-              }}
-            >
+          <div style={CTA_CONTAINER_STYLES}>
+            <p style={CTA_TEXT_STYLES}>
               Interested in seeing more of my work?
             </p>
             <a
@@ -150,8 +221,11 @@ function Projects() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline btn-lg"
+              aria-label="View all projects on GitHub"
             >
-              <span style={{ marginRight: "0.5rem" }}>💻</span>
+              <span style={ICON_STYLES} role="img" aria-label="Code">
+                💻
+              </span>
               View All Projects on GitHub
             </a>
           </div>
@@ -160,4 +234,5 @@ function Projects() {
     </section>
   );
 }
+
 export default Projects;
