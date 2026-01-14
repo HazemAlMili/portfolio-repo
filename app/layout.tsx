@@ -150,34 +150,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${openSans.variable} dark`}>
       <head>
-        {/* Blocking theme script - Prevents FOUC and flickering */}
+        {/* Force Dark Mode - Light mode disabled */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                // Prevent transitions during initial theme application
-                document.documentElement.classList.add('no-transition');
-                
-                // Determine theme
-                const theme = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const isDark = theme ? theme === 'dark' : prefersDark;
-                
-                // Apply theme immediately
-                if (isDark) {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-                
-                // Re-enable transitions after paint (double RAF ensures paint completes)
-                requestAnimationFrame(() => {
-                  requestAnimationFrame(() => {
-                    document.documentElement.classList.remove('no-transition');
-                  });
-                });
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
               })();
             `,
           }}

@@ -37,7 +37,7 @@ const CircuitBackground: React.FC = () => {
   const isVisibleRef = useRef<boolean>(true);
   const lastFrameTimeRef = useRef<number>(0);
   const [isClient, setIsClient] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to true, will fix on mount
+  const [isDarkMode] = useState(true); // Forced dark mode
   const [mounted, setMounted] = useState(false);
 
   // Performance settings based on device
@@ -45,49 +45,18 @@ const CircuitBackground: React.FC = () => {
   const targetFPS = 60;
   const frameInterval = 1000 / targetFPS;
 
-  // Color palette based on theme
-  const getColors = (isDark: boolean) => {
-    if (isDark) {
-      return {
-        trace: '#4a6b8a',      // Light blue-gray for traces
-        traceLight: '#6b8caf', // Lighter variant
-        node: '#d4a574',       // Golden nodes
-        nodeGlow: '#ffd700',   // Bright gold glow
-        packet: '#ffa500',     // Orange-gold packets
-      };
-    } else {
-      return {
-        trace: '#5a7a9a',      // Darker blue-gray for traces in light mode
-        traceLight: '#7a9abf', // Darker variant for light mode
-        node: '#b48654',       // Darker golden nodes
-        nodeGlow: '#c9a000',   // Darker gold glow
-        packet: '#d08500',     // Darker orange-gold packets
-      };
-    }
+  // Color palette - FORCED DARK MODE
+  const colors = {
+    trace: '#4a6b8a',      // Light blue-gray for traces
+    traceLight: '#6b8caf', // Lighter variant
+    node: '#d4a574',       // Golden nodes
+    nodeGlow: '#ffd700',   // Bright gold glow
+    packet: '#ffa500',     // Orange-gold packets
   };
-
-  const colors = getColors(isDarkMode);
 
   useEffect(() => {
     setIsClient(true);
-    
-    // Check theme immediately on mount
-    const isDark = document.documentElement.classList.contains('dark');
-    setIsDarkMode(isDark);
     setMounted(true);
-    
-    // Watch for theme changes thereafter
-    const observer = new MutationObserver(() => {
-      const currentIsDark = document.documentElement.classList.contains('dark');
-      setIsDarkMode(currentIsDark);
-    });
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {

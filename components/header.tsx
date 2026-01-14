@@ -103,60 +103,17 @@ function Header() {
   // THEME MANAGEMENT - Hydration-safe & Flicker-free
   // ============================================================================
 
-  // Initialize theme on client (prevents hydration mismatch)
+  // Initialize theme on client - FORCED DARK MODE
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const isDark = savedTheme ? savedTheme === "dark" : prefersDark;
-    
-    setIsDarkMode(isDark);
-    
-    // Safety sync: ensures DOM matches state
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    setIsDarkMode(true);
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
   }, []);
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
-
   const toggleTheme = useCallback(() => {
-    setIsDarkMode((prev) => {
-      const newTheme = !prev;
-      
-      // Disable transitions to prevent flickering
-      document.documentElement.classList.add('no-transition');
-      
-      // Apply theme
-      if (newTheme) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
-      
-      // Re-enable transitions after paint (double RAF)
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          document.documentElement.classList.remove('no-transition');
-        });
-      });
-      
-      return newTheme;
-    });
+    // Theme switching disabled
+    return;
   }, []);
 
   // ============================================================================
@@ -302,21 +259,7 @@ function Header() {
           <div className="nav-links">
             {navItems}
 
-            {/* Theme Toggle Button */}
-            <button
-              className="theme-toggle"
-              onClick={toggleTheme}
-              aria-label={mounted ? `Switch to ${isDarkMode ? "light" : "dark"} mode` : "Switch theme"}
-              aria-pressed={isDarkMode}
-            >
-              {!mounted ? (
-                <div className="w-5 h-5" />
-              ) : isDarkMode ? (
-                <SunIcon />
-              ) : (
-                <MoonIcon />
-              )}
-            </button>
+            {/* Theme Toggle Button - REMOVED for Dark Mode Only */}
           </div>
 
           {/* Mobile menu button */}
@@ -335,21 +278,7 @@ function Header() {
           <div className="mobile-menu">
             {mobileNavItems}
 
-            {/* Theme Toggle Button in Mobile Menu */}
-            <button
-              className="theme-toggle mobile-theme-toggle"
-              onClick={toggleTheme}
-              aria-label={mounted ? `Switch to ${isDarkMode ? "light" : "dark"} mode` : "Switch theme"}
-              aria-pressed={isDarkMode}
-            >
-              {!mounted ? (
-                <div className="w-5 h-5" />
-              ) : isDarkMode ? (
-                <SunIcon />
-              ) : (
-                <MoonIcon />
-              )}
-            </button>
+            {/* Theme Toggle Button in Mobile Menu - REMOVED */}
           </div>
         )}
       </nav>
