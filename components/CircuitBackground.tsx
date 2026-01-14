@@ -507,7 +507,7 @@ const CircuitBackground: React.FC = () => {
       }
       pointCache.clear();
     };
-  }, [isClient, isMobile, isDarkMode, colors]);
+  }, [isClient, isMobile, isDarkMode, colors, frameInterval]);
 
   if (!isClient) {
     return null;

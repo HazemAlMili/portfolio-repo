@@ -70,12 +70,14 @@ const MoonIcon = ({ className = "" }: { className?: string }) => (
 /**
  * Throttle function to limit scroll event frequency
  */
-const throttle = <T extends (...args: any[]) => any>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const throttle = <T extends (...args: never[]) => unknown>(
   func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
-  return function (this: any, ...args: Parameters<T>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return function (this: unknown, ...args: Parameters<T>) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
@@ -95,7 +97,6 @@ function Header() {
   
   // Hydration-safe: Start with false, update on client
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
   // ============================================================================
   // THEME MANAGEMENT - Hydration-safe & Flicker-free
@@ -103,8 +104,6 @@ function Header() {
 
   // Initialize theme on client (prevents hydration mismatch)
   useEffect(() => {
-    setIsClient(true);
-    
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const isDark = savedTheme ? savedTheme === "dark" : prefersDark;
