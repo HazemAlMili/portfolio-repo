@@ -183,6 +183,9 @@ function Header() {
     const sectionIds = NAV_SECTIONS.map((s) => s.toLowerCase());
     
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      // Prevent active section jumps when mobile menu is open (layout shifts)
+      if (isMobileMenuOpen) return;
+
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.id);
@@ -273,7 +276,7 @@ function Header() {
   // ============================================================================
 
   return (
-    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+    <header className={`header ${isScrolled || isMobileMenuOpen ? "scrolled" : ""}`}>
       <nav className="container">
         <div className="header-nav">
           {/* Logo - Optimized with Next.js Image */}
@@ -286,8 +289,8 @@ function Header() {
               src="/Logo.png"
               alt="Hazem Al-Melli Logo"
               className="logo-img"
-              width={150}
-              height={150}
+              width={170}
+              height={170}
               priority
               quality={95}
               placeholder="blur"

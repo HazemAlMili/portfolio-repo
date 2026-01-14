@@ -37,7 +37,8 @@ const CircuitBackground: React.FC = () => {
   const isVisibleRef = useRef<boolean>(true);
   const lastFrameTimeRef = useRef<number>(0);
   const [isClient, setIsClient] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default to true, will fix on mount
+  const [mounted, setMounted] = useState(false);
 
   // Performance settings based on device
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
@@ -70,16 +71,17 @@ const CircuitBackground: React.FC = () => {
   useEffect(() => {
     setIsClient(true);
     
-    // Check initial theme
-    const checkTheme = () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      setIsDarkMode(isDark);
-    };
+    // Check theme immediately on mount
+    const isDark = document.documentElement.classList.contains('dark');
+    setIsDarkMode(isDark);
+    setMounted(true);
     
-    checkTheme();
+    // Watch for theme changes thereafter
+    const observer = new MutationObserver(() => {
+      const currentIsDark = document.documentElement.classList.contains('dark');
+      setIsDarkMode(currentIsDark);
+    });
     
-    // Watch for theme changes
-    const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class']
@@ -509,7 +511,7 @@ const CircuitBackground: React.FC = () => {
     };
   }, [isClient, isMobile, isDarkMode, colors, frameInterval]);
 
-  if (!isClient) {
+  if (!isClient || !mounted) {
     return null;
   }
 
