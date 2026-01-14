@@ -615,7 +615,7 @@ p {
 @media (max-width: 768px) {
 
   /* Force GPU layer during theme change to prevent repaints */
-  body.no-transition {
+  .no-transition body {
     transform: translateZ(0);
     backface-visibility: hidden;
     will-change: auto;

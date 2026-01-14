@@ -97,6 +97,7 @@ function Header() {
   
   // Hydration-safe: Start with false, update on client
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // ============================================================================
   // THEME MANAGEMENT - Hydration-safe & Flicker-free
@@ -104,12 +105,32 @@ function Header() {
 
   // Initialize theme on client (prevents hydration mismatch)
   useEffect(() => {
+    setMounted(true);
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const isDark = savedTheme ? savedTheme === "dark" : prefersDark;
     
     setIsDarkMode(isDark);
+    
+    // Safety sync: ensures DOM matches state
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const toggleTheme = useCallback(() => {
     setIsDarkMode((prev) => {
@@ -282,10 +303,16 @@ function Header() {
             <button
               className="theme-toggle"
               onClick={toggleTheme}
-              aria-label={`Switch to ${isDarkMode ? "light" : "dark"} mode`}
+              aria-label={mounted ? `Switch to ${isDarkMode ? "light" : "dark"} mode` : "Switch theme"}
               aria-pressed={isDarkMode}
             >
-              {isDarkMode ? <SunIcon /> : <MoonIcon />}
+              {!mounted ? (
+                <div className="w-5 h-5" />
+              ) : isDarkMode ? (
+                <SunIcon />
+              ) : (
+                <MoonIcon />
+              )}
             </button>
           </div>
 
@@ -309,10 +336,16 @@ function Header() {
             <button
               className="theme-toggle mobile-theme-toggle"
               onClick={toggleTheme}
-              aria-label={`Switch to ${isDarkMode ? "light" : "dark"} mode`}
+              aria-label={mounted ? `Switch to ${isDarkMode ? "light" : "dark"} mode` : "Switch theme"}
               aria-pressed={isDarkMode}
             >
-              {isDarkMode ? <SunIcon /> : <MoonIcon />}
+              {!mounted ? (
+                <div className="w-5 h-5" />
+              ) : isDarkMode ? (
+                <SunIcon />
+              ) : (
+                <MoonIcon />
+              )}
             </button>
           </div>
         )}
