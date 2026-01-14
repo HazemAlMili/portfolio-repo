@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import '../styles/CircuitBackground.css';
 
 interface Point {
@@ -37,7 +37,6 @@ const CircuitBackground: React.FC = () => {
   const isVisibleRef = useRef<boolean>(true);
   const lastFrameTimeRef = useRef<number>(0);
   const [isClient, setIsClient] = useState(false);
-  const [isDarkMode] = useState(true); // Forced dark mode
   const [mounted, setMounted] = useState(false);
 
   // Performance settings based on device
@@ -46,13 +45,13 @@ const CircuitBackground: React.FC = () => {
   const frameInterval = 1000 / targetFPS;
 
   // Color palette - FORCED DARK MODE
-  const colors = {
+  const colors = useMemo(() => ({
     trace: '#4a6b8a',      // Light blue-gray for traces
     traceLight: '#6b8caf', // Lighter variant
     node: '#d4a574',       // Golden nodes
     nodeGlow: '#ffd700',   // Bright gold glow
     packet: '#ffa500',     // Orange-gold packets
-  };
+  }), []);
 
   useEffect(() => {
     setIsClient(true);
@@ -478,7 +477,7 @@ const CircuitBackground: React.FC = () => {
       }
       pointCache.clear();
     };
-  }, [isClient, isMobile, isDarkMode, colors, frameInterval]);
+  }, [isClient, isMobile, colors, frameInterval]);
 
   if (!isClient || !mounted) {
     return null;

@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
   compress: true, // Enable gzip compression
   
   /* Production Optimizations */
-  swcMinify: true, // Use SWC for faster builds
+  // swcMinify is enabled by default in Next.js 13+
   
   /* Experimental Features for Better Performance */
   experimental: {
