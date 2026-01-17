@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import GlowCard from "./GlowCard";
+import ScrollReveal from "./ScrollReveal";
 import "../styles/Certificates.css";
 
 // ============================================================================
@@ -92,7 +93,6 @@ const CertificatesSkeleton = () => (
 function Certificates() {
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isVisible, setIsVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // ============================================================================
@@ -123,29 +123,6 @@ function Certificates() {
     return () => {
       abortController.abort(); // Cleanup on unmount
     };
-  }, []);
-
-  // ============================================================================
-  // INTERSECTION OBSERVER - Optimized for animations
-  // ============================================================================
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // Stop observing after visible
-        }
-      },
-      OBSERVER_OPTIONS
-    );
-
-    const element = document.getElementById("certificates");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => observer.disconnect();
   }, []);
 
   // ============================================================================
@@ -198,13 +175,9 @@ function Certificates() {
         const isPriority = index < 3;
 
         return (
-          <div
+          <ScrollReveal
             key={certificate.title}
-            className={`certificate-card-wrapper ${isVisible ? "fade-in-up" : ""}`}
-            style={{
-              opacity: isVisible ? 1 : 0,
-              animationDelay: `${index * 150}ms`,
-            }}
+            delay={index * 150}
           >
             <GlowCard className="certificate-card">
               <div
@@ -241,10 +214,10 @@ function Certificates() {
                 </p>
               </div>
             </GlowCard>
-          </div>
+          </ScrollReveal>
         );
       }),
-    [certificates, isVisible, openModal]
+    [certificates, openModal]
   );
 
   // ============================================================================
@@ -255,12 +228,7 @@ function Certificates() {
     <>
       <section id="certificates" className="section">
         <div className="container">
-          <div
-            className={`transition-all duration-1000 ${
-              isVisible ? "fade-in-up" : ""
-            }`}
-            style={{ opacity: isVisible ? 1 : 0 }}
-          >
+          <ScrollReveal>
             {/* Section Header */}
             <div style={HEADER_STYLES}>
               <h2 className="section-title">Certificates</h2>
@@ -276,7 +244,7 @@ function Certificates() {
             ) : (
               <div className="certificates-grid">{certificateCards}</div>
             )}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 

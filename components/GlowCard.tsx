@@ -6,6 +6,7 @@ import "../styles/GlowCard.css";
 interface GlowCardProps {
   children: ReactNode;
   className?: string;
+  contentClassName?: string;
   glowColor?: string;
   glowSize?: number;
 }
@@ -13,6 +14,7 @@ interface GlowCardProps {
 export default function GlowCard({
   children,
   className = "",
+  contentClassName = "",
   glowColor = "rgba(255, 255, 255, 0.15)",
   glowSize = 400,
 }: GlowCardProps) {

@@ -1,89 +1,54 @@
 "use client";
 
-import { useEffect, useState, useRef, ReactNode, useMemo } from "react";
+import React, { ReactNode } from "react";
+import { motion, Variants } from "framer-motion";
 
 interface ScrollRevealProps {
   children?: ReactNode;
   className?: string;
   threshold?: number;
   delay?: number;
+  direction?: "up" | "down" | "left" | "right";
+  distance?: number;
   style?: React.CSSProperties;
 }
-
-// ============================================================================
-// CONSTANTS - GPU Optimization
-// ============================================================================
-
-const BASE_STYLES: React.CSSProperties = {
-  transform: 'translate3d(0, 0, 0)', // Force GPU layer
-  backfaceVisibility: 'hidden',
-} as const;
-
-// ============================================================================
-// COMPONENT
-// ============================================================================
 
 export default function ScrollReveal({
   children = null,
   className = "",
-  threshold = 0.1,
   delay = 0,
+  direction = "up",
+  distance = 40,
   style = {},
 }: ScrollRevealProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  // IntersectionObserver
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+  const variants: Variants = {
+    hidden: {
+      opacity: 0,
+      x: direction === "left" ? -distance : direction === "right" ? distance : 0,
+      y: direction === "up" ? distance : direction === "down" ? -distance : 0,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        delay: delay / 1000,
+        ease: [0.21, 1.02, 0.73, 1],
       },
-      { threshold }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  // Memoize combined styles (prevent recreation)
-  const combinedStyles = useMemo(() => ({
-    ...BASE_STYLES,
-    opacity: isVisible ? 1 : 0,
-    transitionDelay: `${delay}ms`,
-    ...style,
-  }), [isVisible, delay, style]);
-
-  // Cleanup will-change after animation completes
-  useEffect(() => {
-    if (isVisible && ref.current) {
-      // Add will-change during animation
-      ref.current.style.willChange = 'opacity, transform';
-      
-      // Remove after transition (600ms + delay)
-      const timer = setTimeout(() => {
-        if (ref.current) {
-          ref.current.style.willChange = 'auto';
-        }
-      }, 600 + delay);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isVisible, delay]);
+    },
+  };
 
   return (
-    <div
-      ref={ref}
-      className={`scroll-reveal ${className} ${isVisible ? "fade-in-up" : ""}`}
-      style={combinedStyles}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-10%" }}
+      variants={variants}
+      className={className}
+      style={style}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

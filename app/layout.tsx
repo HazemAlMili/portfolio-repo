@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import dynamic from "next/dynamic";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 // ============================================================================
@@ -103,9 +104,11 @@ export default function RootLayout({
         />
       </head>
       <body className="font-serif antialiased">
-        <CircuitBackground />
-        <PageLoader />
-        {children}
+        <SmoothScroll>
+          <CircuitBackground />
+          <PageLoader />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

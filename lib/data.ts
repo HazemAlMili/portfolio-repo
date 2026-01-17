@@ -24,27 +24,33 @@ import {
   SiNodedotjs,
   SiMongodb,
   SiExpress,
+  SiGit,
+  SiGithub,
 } from 'react-icons/si';
 import { IconType } from 'react-icons';
 
 export interface Skill {
   name: string;
   icon: IconType;
-  category?: string;
+  category: "Frontend" | "Backend" | "Tools";
+  color: string;
+  proficiency: number; // 0-100
 }
 
 export const skills: Skill[] = [
-  { name: "HTML5", icon: SiHtml5, category: "Frontend" },
-  { name: "CSS3", icon: SiCss3, category: "Frontend" },
-  { name: "JavaScript", icon: SiJavascript, category: "Frontend" },
-  { name: "React", icon: SiReact, category: "Frontend" },
-  { name: "Next.js", icon: SiNextdotjs, category: "Frontend" },
-  { name: "TypeScript", icon: SiTypescript, category: "Frontend" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, category: "Frontend" },
-  { name: "Bootstrap", icon: SiBootstrap, category: "Frontend" },
-  { name: "Node.js", icon: SiNodedotjs, category: "Backend" },
-  { name: "MongoDB", icon: SiMongodb, category: "Backend" },
-  { name: "Express.js", icon: SiExpress, category: "Backend" },
+  { name: "HTML5", icon: SiHtml5, category: "Frontend", color: "#E34F26", proficiency: 95 },
+  { name: "CSS3", icon: SiCss3, category: "Frontend", color: "#1572B6", proficiency: 90 },
+  { name: "JavaScript", icon: SiJavascript, category: "Frontend", color: "#F7DF1E", proficiency: 92 },
+  { name: "React", icon: SiReact, category: "Frontend", color: "#61DAFB", proficiency: 90 },
+  { name: "Next.js", icon: SiNextdotjs, category: "Frontend", color: "#FFFFFF", proficiency: 88 },
+  { name: "TypeScript", icon: SiTypescript, category: "Frontend", color: "#3178C6", proficiency: 85 },
+  { name: "Tailwind CSS", icon: SiTailwindcss, category: "Frontend", color: "#06B6D4", proficiency: 92 },
+  { name: "Bootstrap", icon: SiBootstrap, category: "Frontend", color: "#7952B3", proficiency: 85 },
+  { name: "Node.js", icon: SiNodedotjs, category: "Backend", color: "#339933", proficiency: 80 },
+  { name: "MongoDB", icon: SiMongodb, category: "Backend", color: "#47A248", proficiency: 82 },
+  { name: "Express.js", icon: SiExpress, category: "Backend", color: "#FFFFFF", proficiency: 80 },
+  { name: "Git", icon: SiGit, category: "Tools", color: "#F05032", proficiency: 85 },
+  { name: "GitHub", icon: SiGithub, category: "Tools", color: "#fafafa", proficiency: 80 },
 ];
 
 export const features = [
