@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://hazemalmelli.vercel.app/",
-    siteName: "Hazem Al-Melli - Front-End Developer Portfolio",
+    siteName: "Hazem Al-Melli",
     title: "Hazem Al-Melli | Front-End Developer & React Specialist",
     description:
       "Experienced Front-End Developer specializing in React, Next.js, and TypeScript. Explore my portfolio of modern web applications and cutting-edge projects. Available for freelance and full-time opportunities.",
