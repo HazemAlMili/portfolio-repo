@@ -69,18 +69,6 @@ const CircuitBackground: React.FC = () => {
     };
 
     updateColors();
-
-    // Re-run whenever the 'dark' class changes on html
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          updateColors();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-    return () => observer.disconnect();
   }, [isClient]);
 
   useEffect(() => {

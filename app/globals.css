@@ -4,47 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light mode colors */
-  --background: #ffffff;
-  --foreground: #000000;
-  --card: #f8f9fa;
-  --card-foreground: #000000;
-  --popover: #ffffff;
-  --popover-foreground: #000000;
-  --primary: #000000;
-  --primary-foreground: #ffffff;
-  --secondary: #6c757d;
-  --secondary-foreground: #ffffff;
-  --muted: #f1f3f5;
-  --muted-foreground: #495057;
-  --accent: #000000;
-  --accent-foreground: #ffffff;
-  --destructive: #dc3545;
-  --destructive-foreground: #ffffff;
-  --border: #dee2e6;
-  --input: #ffffff;
-  --ring: #000000;
-  --chart-1: #000000;
-  --chart-2: #495057;
-  --chart-3: #6c757d;
-  --chart-4: #adb5bd;
-  --chart-5: #dee2e6;
-  --radius: 0.625rem;
-  --sidebar: #f8f9fa;
-  --sidebar-foreground: #000000;
-  --sidebar-primary: #000000;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f1f3f5;
-  --sidebar-accent-foreground: #000000;
-  --sidebar-border: #dee2e6;
-  --sidebar-ring: #000000;
-  --header-bg: rgba(255, 255, 255, 0.9);
-  --bg-glow: rgba(0, 0, 0, 0.02);
-  --particle-color: rgba(0, 0, 0, 0.05);
-  --shape-glow: linear-gradient(45deg, rgba(0, 0, 0, 0.05), transparent);
-}
-
-.dark {
+  /* Site-wide theme colors (Fixed to Dark) */
   --background: #000000;
   --foreground: #ffffff;
   --card: #0a0a0a;

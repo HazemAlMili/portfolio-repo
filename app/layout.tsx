@@ -87,23 +87,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${openSans.variable} dark`}>
       <head>
-        {/* Theme Initialization Script - Runs before paint to prevent flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                const theme = localStorage.getItem('theme') || 
-                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                }
-              })();
-            `,
-          }}
-        />
-        
         {/* JSON-LD - أقوى طريقة لتعريف اسم الموقع لجوجل */}
         <script
           type="application/ld+json"

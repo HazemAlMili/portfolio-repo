@@ -1,9 +1,6 @@
 "use client";
-
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
-import ThemeToggle from "./ThemeToggle";
-
 import "../styles/Header.css";
 
 // ============================================================================
@@ -192,7 +189,6 @@ function Header() {
           {/* Desktop Navigation */}
           <div className="nav-links">
             {navItems}
-            <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
@@ -210,9 +206,6 @@ function Header() {
         {isMobileMenuOpen && (
           <div className="mobile-menu">
             {mobileNavItems}
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
-              <ThemeToggle />
-            </div>
           </div>
         )}
       </nav>

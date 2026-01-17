@@ -15,10 +15,6 @@
             transparent 80%);
 }
 
-/* Light mode adjustments */
-:root:not(.dark) .glow-card {
-    --glow-color: rgba(0, 0, 0, 0.05);
-}
 
 .glow-content {
     position: relative;
