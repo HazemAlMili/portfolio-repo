@@ -5,13 +5,8 @@ import dynamic from "next/dynamic";
 import "./globals.css";
 
 // ============================================================================
-// LAZY LOAD HEAVY COMPONENTS
+// FONTS CONFIGURATION
 // ============================================================================
-
-// These are client components ('use client'), so they won't SSR anyway
-const PageLoader = dynamic(() => import("@/components/PageLoader"));
-const CircuitBackground = dynamic(() => import("@/components/CircuitBackground"));
-
 const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
@@ -26,124 +21,66 @@ const openSans = Open_Sans({
   weight: ["400", "500", "600"],
 });
 
+// ============================================================================
+// LAZY LOAD HEAVY COMPONENTS
+// ============================================================================
+const PageLoader = dynamic(() => import("@/components/PageLoader"));
+const CircuitBackground = dynamic(() => import("@/components/CircuitBackground"));
+
+// ============================================================================
+// METADATA & SEO
+// ============================================================================
 export const metadata: Metadata = {
-  // Basic Metadata
+  metadataBase: new URL("https://hazemalmelli.vercel.app"),
   title: {
     default: "Hazem Al-Melli | Front-End Developer & React Specialist",
     template: "%s | Hazem Al-Melli",
   },
   description:
-    "Experienced Front-End Developer specializing in React, Next.js, and TypeScript. Building modern, responsive web applications with clean code and exceptional user experiences. Based in Cairo, Egypt.",
+    "Experienced Front-End Developer specializing in React, Next.js, and TypeScript. Building modern, responsive web applications in Cairo, Egypt.",
   
-  // Keywords for SEO
-  keywords: [
-    "Front-End Developer",
-    "React Developer",
-    "Next.js Developer",
-    "TypeScript Developer",
-    "Web Developer Cairo",
-    "JavaScript Developer",
-    "UI/UX Developer",
-    "Responsive Web Design",
-    "Modern Web Development",
-    "Hazem Al-Melli",
-    "Portfolio",
-    "HTML5",
-    "CSS3",
-    "Tailwind CSS",
-    "Bootstrap",
-  ],
-
-  // Authors
-  authors: [
-    {
-      name: "Hazem Al-Melli",
-      url: "https://hazemalmelli.vercel.app",
-    },
-  ],
-
-  // Creator
+  keywords: ["Front-End Developer", "React Developer", "Next.js", "TypeScript", "Hazem Al-Melli"],
+  
+  authors: [{ name: "Hazem Al-Melli", url: "https://hazemalmelli.vercel.app" }],
   creator: "Hazem Al-Melli",
-
-  // Publisher
   publisher: "Hazem Al-Melli",
 
-  // Robots
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-
-  // Open Graph (Facebook, LinkedIn, etc.)
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://hazemalmelli.vercel.app/",
-    siteName: "Hazem Al-Melli",
-    title: "Hazem Al-Melli | Front-End Developer & React Specialist",
-    description:
-      "Experienced Front-End Developer specializing in React, Next.js, and TypeScript. Explore my portfolio of modern web applications and cutting-edge projects. Available for freelance and full-time opportunities.",
+    siteName: "Hazem Al-Melli", // لضمان تغيير كلمة Vercel في جوجل
+    title: "Hazem Al-Melli | Front-End Developer",
+    description: "Explore my portfolio of modern web applications and cutting-edge projects.",
     images: [
       {
-        url: "https://hazemalmelli.vercel.app/api/og",
+        url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Hazem Al-Melli - Front-End Developer Portfolio",
-        type: "image/png",
+        alt: "Hazem Al-Melli Portfolio",
       },
     ],
   },
 
-  // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "Hazem Al-Melli | Front-End Developer & React Specialist",
-    description:
-      "Experienced Front-End Developer building modern web applications with React, Next.js & TypeScript. Check out my portfolio and latest projects!",
-    creator: "@hazem_almelli", // Update with your Twitter handle if you have one
-    images: ["https://hazemalmelli.vercel.app/api/og"],
+    title: "Hazem Al-Melli | Front-End Developer",
+    description: "Experienced Front-End Developer building modern web applications.",
+    images: ["/api/og"],
   },
 
-  // Icons & Manifest
-  icons: {
-    icon: [
-      { url: "/icon.png", sizes: "any" },
-      { url: "/Logo.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: [
-      { url: "/Logo.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
+  // ملاحظة: تم حذف قسم icons لأنك وضعت icon.png داخل فولدر app
+  // Next.js سيتعرف عليها تلقائياً ويولد الروابط الصحيحة.
 
-  // Manifest
   manifest: "/manifest.json",
-
-  // verification (Add these tokens when you verify your site)
   verification: {
-    google: "1f4ac51d03ae467c", // Google Search Console verification
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
-  },
-
-  // Category
-  category: "technology",
-
-  // Additional metadata
-  metadataBase: new URL("https://hazemalmelli.vercel.app"),
-  
-  // Alternate languages (if you support multiple languages)
-  alternates: {
-    canonical: "https://hazemalmelli.vercel.app",
+    google: "1f4ac51d03ae467c",
   },
 };
 
+// ============================================================================
+// ROOT LAYOUT COMPONENT
+// ============================================================================
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -152,7 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable} dark`}>
       <head>
-        {/* Force Dark Mode - Light mode disabled */}
+        {/* Force Dark Mode Script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -163,28 +100,24 @@ export default function RootLayout({
             `,
           }}
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-      </head>
-      <body className="font-serif antialiased">
-        <CircuitBackground />
-        <PageLoader />
-        {children}
+        
+        {/* JSON-LD - أقوى طريقة لتعريف اسم الموقع لجوجل */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "Hazem Al-Melli", 
+              "name": "Hazem Al-Melli",
               "url": "https://hazemalmelli.vercel.app/"
             }),
           }}
         />
+      </head>
+      <body className="font-serif antialiased">
+        <CircuitBackground />
+        <PageLoader />
+        {children}
       </body>
     </html>
   );
