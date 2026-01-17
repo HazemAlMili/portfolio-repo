@@ -25,13 +25,11 @@ const OBSERVER_OPTIONS = {
 /**
  * Throttle function to limit scroll event frequency
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const throttle = <T extends (...args: never[]) => unknown>(
   func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (this: unknown, ...args: Parameters<T>) {
     if (!inThrottle) {
       func.apply(this, args);
