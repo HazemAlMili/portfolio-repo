@@ -103,8 +103,8 @@ export const projects = [
     ],
     technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "ReactJS"],
     renderStrategy: "CSR" as const,
-    demoLink: "https://mohamedabuzahda.github.io/Real-State/",
-    codeLink: "https://github.com/mohamedabuzahda/Real-State",
+    demoLink: "https://hazemalmili.github.io/GDG-Final-Project",
+    codeLink: "https://github.com/HazemAlMili/GDG-Final-Project",
     image: "/real-estate.png",
   },
   {
