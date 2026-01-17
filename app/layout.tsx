@@ -174,6 +174,17 @@ export default function RootLayout({
         <CircuitBackground />
         <PageLoader />
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Hazem Al-Melli", 
+              "url": "https://hazemalmelli.vercel.app/"
+            }),
+          }}
+        />
       </body>
     </html>
   );
