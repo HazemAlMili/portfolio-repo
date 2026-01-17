@@ -6,7 +6,14 @@
     --circuit-overlay-color: rgba(50, 50, 50, 0.3);
     --circuit-vignette-inner: rgba(50, 50, 50, 0.2);
     --circuit-vignette-outer: rgba(50, 50, 50, 0.5);
-    --circuit-mobile-overlay: rgba(50, 50, 50, 0.15);
+    --circuit-mobile-overlay: rgba(50, 0, 0, 0.15);
+
+    /* New dynamic circuit colors - Light Mode */
+    --circuit-trace: #b0c4de;
+    --circuit-trace-light: #d3d3d3;
+    --circuit-node: #4a6b8a;
+    --circuit-node-glow: rgba(74, 107, 138, 0.4);
+    --circuit-packet: #2f4f4f;
 }
 
 .dark {
@@ -18,6 +25,13 @@
     --circuit-vignette-inner: rgba(0, 0, 0, 0.3);
     --circuit-vignette-outer: rgba(0, 0, 0, 0.6);
     --circuit-mobile-overlay: rgba(0, 0, 0, 0.2);
+
+    /* New dynamic circuit colors - Dark Mode */
+    --circuit-trace: #4a6b8a;
+    --circuit-trace-light: #6b8caf;
+    --circuit-node: #d4a574;
+    --circuit-node-glow: #ffd700;
+    --circuit-packet: #ffa500;
 }
 
 .circuit-background {

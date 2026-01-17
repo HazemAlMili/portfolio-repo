@@ -44,14 +44,44 @@ const CircuitBackground: React.FC = () => {
   const targetFPS = 60;
   const frameInterval = 1000 / targetFPS;
 
-  // Color palette - FORCED DARK MODE
-  const colors = useMemo(() => ({
-    trace: '#4a6b8a',      // Light blue-gray for traces
-    traceLight: '#6b8caf', // Lighter variant
-    node: '#d4a574',       // Golden nodes
-    nodeGlow: '#ffd700',   // Bright gold glow
-    packet: '#ffa500',     // Orange-gold packets
-  }), []);
+  // Color palette - Dynamic from CSS variables
+  const [colors, setColors] = useState({
+    trace: '#4a6b8a',
+    traceLight: '#6b8caf',
+    node: '#d4a574',
+    nodeGlow: '#ffd700',
+    packet: '#ffa500',
+  });
+
+  // Update colors when theme changes
+  useEffect(() => {
+    if (!isClient) return;
+
+    const updateColors = () => {
+      const styles = getComputedStyle(document.documentElement);
+      setColors({
+        trace: styles.getPropertyValue('--circuit-trace').trim() || '#4a6b8a',
+        traceLight: styles.getPropertyValue('--circuit-trace-light').trim() || '#6b8caf',
+        node: styles.getPropertyValue('--circuit-node').trim() || '#d4a574',
+        nodeGlow: styles.getPropertyValue('--circuit-node-glow').trim() || '#ffd700',
+        packet: styles.getPropertyValue('--circuit-packet').trim() || '#ffa500',
+      });
+    };
+
+    updateColors();
+
+    // Re-run whenever the 'dark' class changes on html
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateColors();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+    return () => observer.disconnect();
+  }, [isClient]);
 
   useEffect(() => {
     setIsClient(true);

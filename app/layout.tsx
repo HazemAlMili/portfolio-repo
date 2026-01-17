@@ -87,15 +87,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${openSans.variable} dark`}>
+    <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
       <head>
-        {/* Force Dark Mode Script */}
+        {/* Theme Initialization Script - Runs before paint to prevent flash */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+                const theme = localStorage.getItem('theme') || 
+                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                }
               })();
             `,
           }}

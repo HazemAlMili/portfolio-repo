@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
+import ThemeToggle from "./ThemeToggle";
 
 import "../styles/Header.css";
 
@@ -16,10 +17,6 @@ const OBSERVER_OPTIONS = {
   rootMargin: "-20% 0px -70% 0px",
   threshold: 0,
 } as const;
-
-// ============================================================================
-// ICONS REMOVED - DARK MODE ONLY
-// ============================================================================
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -53,11 +50,7 @@ function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   
-  // Initialize theme on client - FORCED DARK MODE
-  useEffect(() => {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  }, []);
+  // Navigation and scroll logic
 
   // ============================================================================
   // SCROLL DETECTION - Throttled for performance
@@ -201,8 +194,7 @@ function Header() {
           {/* Desktop Navigation */}
           <div className="nav-links">
             {navItems}
-
-            {/* Theme Toggle Button - REMOVED for Dark Mode Only */}
+            <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
@@ -220,8 +212,9 @@ function Header() {
         {isMobileMenuOpen && (
           <div className="mobile-menu">
             {mobileNavItems}
-
-            {/* Theme Toggle Button in Mobile Menu - REMOVED */}
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+              <ThemeToggle />
+            </div>
           </div>
         )}
       </nav>

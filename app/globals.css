@@ -4,8 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light mode colors - DISABLED (Commented out) */
-  /*
+  /* Light mode colors */
   --background: #ffffff;
   --foreground: #000000;
   --card: #f8f9fa;
@@ -43,49 +42,8 @@
   --bg-glow: rgba(0, 0, 0, 0.02);
   --particle-color: rgba(0, 0, 0, 0.05);
   --shape-glow: linear-gradient(45deg, rgba(0, 0, 0, 0.05), transparent);
-  */
-
-  /* Default to Dark variables even if .dark class is missing */
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #0a0a0a;
-  --card-foreground: #ffffff;
-  --popover: #0a0a0a;
-  --popover-foreground: #ffffff;
-  --primary: #1a1a1a;
-  --primary-foreground: #ffffff;
-  --secondary: #2a2a2a;
-  --secondary-foreground: #ffffff;
-  --muted: #141414;
-  --muted-foreground: #b0b0b0;
-  --accent: #ffffff;
-  --accent-foreground: #000000;
-  --destructive: #ff4757;
-  --destructive-foreground: #ffffff;
-  --border: #1f1f1f;
-  --input: #0a0a0a;
-  --ring: #ffffff;
-  --chart-1: #ffffff;
-  --chart-2: #e0e0e0;
-  --chart-3: #b0b0b0;
-  --chart-4: #808080;
-  --chart-5: #505050;
-  --radius: 0.625rem;
-  --sidebar: #0a0a0a;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #1a1a1a;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #141414;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #1f1f1f;
-  --header-bg: rgba(0, 0, 0, 0.85);
-  --bg-glow: rgba(255, 255, 255, 0.03);
-  --particle-color: rgba(255, 255, 255, 0.05);
-  --shape-glow: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
 }
 
-/* Dark mode class - DISABLED (Merged into :root) */
-/*
 .dark {
   --background: #000000;
   --foreground: #ffffff;
@@ -125,50 +83,7 @@
   --particle-color: rgba(255, 255, 255, 0.05);
   --shape-glow: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
 }
-*/
 
-/* Dark mode variables - DISABLED (Merged into :root) */
-/*
-.dark {
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #0a0a0a;
-  --card-foreground: #ffffff;
-  --popover: #0a0a0a;
-  --popover-foreground: #ffffff;
-  --primary: #1a1a1a;
-  --primary-foreground: #ffffff;
-  --secondary: #2a2a2a;
-  --secondary-foreground: #ffffff;
-  --muted: #141414;
-  --muted-foreground: #b0b0b0;
-  --accent: #ffffff;
-  --accent-foreground: #000000;
-  --destructive: #ff4757;
-  --destructive-foreground: #ffffff;
-  --border: #1f1f1f;
-  --input: #0a0a0a;
-  --ring: #ffffff;
-  --chart-1: #ffffff;
-  --chart-2: #e0e0e0;
-  --chart-3: #b0b0b0;
-  --chart-4: #808080;
-  --chart-5: #505050;
-  --radius: 0.625rem;
-  --sidebar: #0a0a0a;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #1a1a1a;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #141414;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #1f1f1f;
-  --sidebar-ring: #ffffff;
-  --header-bg: rgba(0, 0, 0, 0.85);
-  --bg-glow: rgba(255, 255, 255, 0.03);
-  --particle-color: rgba(255, 255, 255, 0.05);
-  --shape-glow: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
-}
-*/
 
 @theme inline {
   /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
