@@ -1,0 +1,27 @@
+.glow-card {
+    position: relative;
+    isolation: isolate;
+}
+
+.glow-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: var(--glow-opacity, 0);
+    transition: opacity 0.3s ease;
+    background: radial-gradient(var(--glow-size, 400px) circle at var(--mouse-x, 0) var(--mouse-y, 0),
+            var(--glow-color, rgba(255, 255, 255, 0.1)),
+            transparent 80%);
+}
+
+/* Light mode adjustments */
+:root:not(.dark) .glow-card {
+    --glow-color: rgba(0, 0, 0, 0.05);
+}
+
+.glow-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+}

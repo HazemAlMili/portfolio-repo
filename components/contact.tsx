@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { personalInfo } from "@/lib/data";
 import ScrollReveal from "./ScrollReveal";
+import GlowCard from "./GlowCard";
 import "../styles/Contact.css"; // We will need to update or create this CSS file
 
 function Contact() {
@@ -92,144 +93,148 @@ function Contact() {
 
           <div className="contact-grid-layout">
             {/* Contact Info Card */}
-            <ScrollReveal className="contact-info-card" delay={200}>
-              <h3>Contact Information</h3>
-              <p className="contact-info-text">
-                Feel free to reach out to me directly through any of these
-                channels.
-              </p>
+            <ScrollReveal delay={200}>
+              <GlowCard className="contact-info-card">
+                <h3>Contact Information</h3>
+                <p className="contact-info-text">
+                  Feel free to reach out to me directly through any of these
+                  channels.
+                </p>
 
-              <div className="contact-details">
-                <div className="contact-item">
-                  <span className="icon">📧</span>
-                  <a href={`mailto:${personalInfo.email}`}>
-                    {personalInfo.email}
-                  </a>
+                <div className="contact-details">
+                  <div className="contact-item">
+                    <span className="icon">📧</span>
+                    <a href={`mailto:${personalInfo.email}`}>
+                      {personalInfo.email}
+                    </a>
+                  </div>
+                  <div className="contact-item">
+                    <span className="icon">📞</span>
+                    <a href={`tel:${personalInfo.phone}`}>{personalInfo.phone}</a>
+                  </div>
+                  <div className="contact-item">
+                    <span className="icon">📍</span>
+                    <span>{personalInfo.location}</span>
+                  </div>
                 </div>
-                <div className="contact-item">
-                  <span className="icon">📞</span>
-                  <a href={`tel:${personalInfo.phone}`}>{personalInfo.phone}</a>
-                </div>
-                <div className="contact-item">
-                  <span className="icon">📍</span>
-                  <span>{personalInfo.location}</span>
-                </div>
-              </div>
 
-              <div className="social-connect">
-                <h4>Connect with me</h4>
-                <div className="social-icons">
-                  <a
-                    href={personalInfo.socialLinks.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href={personalInfo.socialLinks.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn"
-                  >
-                    LinkedIn
-                  </a>
-                  <a
-                    href={personalInfo.socialLinks.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram"
-                  >
-                    Instagram
-                  </a>
-                  <a
-                    href={personalInfo.socialLinks.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Facebook"
-                  >
-                    Facebook
-                  </a>
+                <div className="social-connect">
+                  <h4>Connect with me</h4>
+                  <div className="social-icons">
+                    <a
+                      href={personalInfo.socialLinks.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub"
+                    >
+                      GitHub
+                    </a>
+                    <a
+                      href={personalInfo.socialLinks.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn"
+                    >
+                      LinkedIn
+                    </a>
+                    <a
+                      href={personalInfo.socialLinks.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram"
+                    >
+                      Instagram
+                    </a>
+                    <a
+                      href={personalInfo.socialLinks.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Facebook"
+                    >
+                      Facebook
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </GlowCard>
             </ScrollReveal>
 
             {/* Contact Form */}
-            <ScrollReveal className="card contact-form-card" delay={400}>
-              <div className="card-header">
-                <h3>Send a Message</h3>
-              </div>
-              <div className="card-content">
-                <form
-                  ref={formRef}
-                  onSubmit={handleSubmit}
-                  className="contact-form"
-                >
-                  {["name", "email", "phone"].map((field) => (
-                    <div className="form-group" key={field}>
-                      <label htmlFor={field} className="form-label">
-                        {field.charAt(0).toUpperCase() + field.slice(1)}
+            <ScrollReveal delay={400}>
+              <GlowCard className="card contact-form-card">
+                <div className="card-header">
+                  <h3>Send a Message</h3>
+                </div>
+                <div className="card-content">
+                  <form
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                    className="contact-form"
+                  >
+                    {["name", "email", "phone"].map((field) => (
+                      <div className="form-group" key={field}>
+                        <label htmlFor={field} className="form-label">
+                          {field.charAt(0).toUpperCase() + field.slice(1)}
+                        </label>
+                        <input
+                          id={field}
+                          name={field}
+                          type={field === "email" ? "email" : "text"}
+                          placeholder={`Enter your ${field}`}
+                          value={(formData as Record<string, string>)[field]}
+                          onChange={handleInputChange}
+                          className="form-input"
+                        />
+                        {errors[field] && (
+                          <p className="error-message" style={{ color: "red" }}>
+                            {errors[field]}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+
+                    <div className="form-group">
+                      <label htmlFor="message" className="form-label">
+                        Message
                       </label>
-                      <input
-                        id={field}
-                        name={field}
-                        type={field === "email" ? "email" : "text"}
-                        placeholder={`Enter your ${field}`}
-                        value={(formData as Record<string, string>)[field]}
+                      <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Tell me about your project or just say hello..."
+                        rows={5}
+                        value={formData.message}
                         onChange={handleInputChange}
-                        className="form-input"
+                        className="form-textarea"
                       />
-                      {errors[field] && (
+                      {errors.message && (
                         <p className="error-message" style={{ color: "red" }}>
-                          {errors[field]}
+                          {errors.message}
                         </p>
                       )}
                     </div>
-                  ))}
 
-                  <div className="form-group">
-                    <label htmlFor="message" className="form-label">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      placeholder="Tell me about your project or just say hello..."
-                      rows={5}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className="form-textarea"
-                    />
-                    {errors.message && (
-                      <p className="error-message" style={{ color: "red" }}>
-                        {errors.message}
-                      </p>
-                    )}
-                  </div>
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-lg"
+                      style={{ width: "100%" }}
+                      disabled={isSending}
+                    >
+                      {isSending ? "Sending..." : "📤 Send Message"}
+                    </button>
+                  </form>
 
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-lg"
-                    style={{ width: "100%" }}
-                    disabled={isSending}
-                  >
-                    {isSending ? "Sending..." : "📤 Send Message"}
-                  </button>
-                </form>
-
-                {statusMessage && (
-                  <p
-                    style={{
-                      marginTop: "1rem",
-                      textAlign: "center",
-                      color: statusMessage.startsWith("✅") ? "green" : "red",
-                    }}
-                  >
-                    {statusMessage}
-                  </p>
-                )}
-              </div>
+                  {statusMessage && (
+                    <p
+                      style={{
+                        marginTop: "1rem",
+                        textAlign: "center",
+                        color: statusMessage.startsWith("✅") ? "green" : "red",
+                      }}
+                    >
+                      {statusMessage}
+                    </p>
+                  )}
+                </div>
+              </GlowCard>
             </ScrollReveal>
           </div>
         </ScrollReveal>

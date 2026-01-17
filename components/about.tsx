@@ -2,6 +2,7 @@
 
 import { skills, features } from "@/lib/data"
 import ScrollReveal from "./ScrollReveal"
+import GlowCard from "./GlowCard"
 import "../styles/About.css"
 
 function About() {
@@ -68,7 +69,7 @@ function About() {
                         key={skill.name}
                         delay={index * 100}
                       >
-                        <div className="group relative bg-card border border-border rounded-lg p-6 transition-all duration-300 hover:scale-105 hover:border-accent hover:shadow-lg hover:shadow-accent/20 flex flex-col items-center justify-center gap-3 min-h-[140px]">
+                        <GlowCard className="group relative bg-card border border-border rounded-lg p-6 transition-all duration-300 hover:scale-105 hover:border-accent hover:shadow-lg hover:shadow-accent/20 flex flex-col items-center justify-center gap-3 min-h-[140px]">
                           {/* Icon */}
                           <div className="text-accent transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                             <IconComponent size={40} />
@@ -81,7 +82,7 @@ function About() {
                           
                           {/* Decorative accent line */}
                           <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-lg" />
-                        </div>
+                        </GlowCard>
                       </ScrollReveal>
                     );
                   })}
@@ -94,14 +95,15 @@ function About() {
               {features.map((feature, index) => (
                 <ScrollReveal
                   key={feature.title}
-                  className="card feature-card"
                   delay={index * 150}
                 >
-                  <div className="feature-icon" style={{ fontSize: "2rem" }}>
-                    {feature.icon}
-                  </div>
-                  <h3 className="feature-title">{feature.title}</h3>
-                  <p className="feature-description">{feature.description}</p>
+                  <GlowCard className="card feature-card">
+                    <div className="feature-icon" style={{ fontSize: "2rem" }}>
+                      {feature.icon}
+                    </div>
+                    <h3 className="feature-title">{feature.title}</h3>
+                    <p className="feature-description">{feature.description}</p>
+                  </GlowCard>
                 </ScrollReveal>
               ))}
             </div>

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { projects, personalInfo } from "@/lib/data";
 import ScrollReveal from "./ScrollReveal";
+import GlowCard from "./GlowCard";
 import "../styles/Projects.css";
 
 // ============================================================================
@@ -123,125 +124,126 @@ function Projects() {
         return (
           <ScrollReveal
             key={project.title}
-            className="project-card"
             delay={index * 150}
           >
-            <div className="project-image" style={IMAGE_CONTAINER_STYLES}>
-              <Image
-                src={project.image}
-                alt={`${project.title} - ${project.description}`}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                style={{ objectFit: "cover" }}
-                priority={isPriority}
-                loading={isPriority ? "eager" : "lazy"}
-                quality={85}
-              />
-            </div>
+            <GlowCard className="project-card">
+              <div className="project-image" style={IMAGE_CONTAINER_STYLES}>
+                <Image
+                  src={project.image}
+                  alt={`${project.title} - ${project.description}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  style={{ objectFit: "cover" }}
+                  priority={isPriority}
+                  loading={isPriority ? "eager" : "lazy"}
+                  quality={85}
+                />
+              </div>
 
-            <div className="project-content">
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-description">{project.description}</p>
+              <div className="project-content">
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-description">{project.description}</p>
 
-              {/* My Role Badge */}
-              {project.role && (
-                <div style={ROLE_CONTAINER_STYLES}>
-                  <span className="role-badge" style={ROLE_BADGE_STYLES}>
-                    <span role="img" aria-label="Role">
-                      👤
-                    </span>
-                    {project.role}
-                  </span>
-                </div>
-              )}
-
-              {/* Render Strategy Badge */}
-              {project.renderStrategy && (
-                <>
+                {/* My Role Badge */}
+                {project.role && (
                   <div style={ROLE_CONTAINER_STYLES}>
-                    <span 
-                      className={`render-strategy-badge strategy-${project.renderStrategy.toLowerCase()}`}
-                      onClick={() => toggleStrategyExplanation(project.title)}
-                      title={
-                        project.renderStrategy === "CSR" 
-                          ? "Client-Side Rendering" 
-                          : project.renderStrategy === "SSR" 
-                          ? "Server-Side Rendering" 
-                          : "Static Site Generation"
-                      }
-                    >
-                      <span role="img" aria-label="Render Strategy">
-                        {project.renderStrategy === "CSR" ? "⚡" : project.renderStrategy === "SSR" ? "🔄" : "📄"}
+                    <span className="role-badge" style={ROLE_BADGE_STYLES}>
+                      <span role="img" aria-label="Role">
+                        👤
                       </span>
-                      {project.renderStrategy}
+                      {project.role}
                     </span>
-                  </div>
-                  
-                  {/* Explanation - appears when badge is clicked */}
-                  {expandedStrategy[project.title] && (
-                    <div className="strategy-explanation">
-                      <p>{RENDER_STRATEGY_EXPLANATIONS[project.renderStrategy]}</p>
-                    </div>
-                  )}
-                </>
-              )}
-
-              {/* Key Responsibilities */}
-              {project.responsibilities &&
-                project.responsibilities.length > 0 && (
-                  <div style={RESPONSIBILITIES_CONTAINER_STYLES}>
-                    <h4 style={RESPONSIBILITIES_HEADING_STYLES}>
-                      Key Contributions:
-                    </h4>
-                    <ul style={RESPONSIBILITIES_LIST_STYLES}>
-                      {project.responsibilities.map((responsibility, idx) => (
-                        <li key={idx} style={LIST_ITEM_STYLES}>
-                          {responsibility}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 )}
 
-              {/* Technologies */}
-              <div className="project-tech">
-                {project.technologies.map((tech) => (
-                  <span key={tech} className="tech-tag">
-                    {tech}
-                  </span>
-                ))}
-              </div>
+                {/* Render Strategy Badge */}
+                {project.renderStrategy && (
+                  <>
+                    <div style={ROLE_CONTAINER_STYLES}>
+                      <span 
+                        className={`render-strategy-badge strategy-${project.renderStrategy.toLowerCase()}`}
+                        onClick={() => toggleStrategyExplanation(project.title)}
+                        title={
+                          project.renderStrategy === "CSR" 
+                            ? "Client-Side Rendering" 
+                            : project.renderStrategy === "SSR" 
+                            ? "Server-Side Rendering" 
+                            : "Static Site Generation"
+                        }
+                      >
+                        <span role="img" aria-label="Render Strategy">
+                          {project.renderStrategy === "CSR" ? "⚡" : project.renderStrategy === "SSR" ? "🔄" : "📄"}
+                        </span>
+                        {project.renderStrategy}
+                      </span>
+                    </div>
+                    
+                    {/* Explanation - appears when badge is clicked */}
+                    {expandedStrategy[project.title] && (
+                      <div className="strategy-explanation">
+                        <p>{RENDER_STRATEGY_EXPLANATIONS[project.renderStrategy]}</p>
+                      </div>
+                    )}
+                  </>
+                )}
 
-              {/* Project Links */}
-              <div className="project-links">
-                <a
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary btn-sm"
-                  style={DEMO_LINK_STYLES}
-                  aria-label={`View ${project.title} demo`}
-                >
-                  <span style={ICON_STYLES} role="img" aria-label="Link">
-                    🔗
-                  </span>
-                  Demo
-                </a>
+                {/* Key Responsibilities */}
+                {project.responsibilities &&
+                  project.responsibilities.length > 0 && (
+                    <div style={RESPONSIBILITIES_CONTAINER_STYLES}>
+                      <h4 style={RESPONSIBILITIES_HEADING_STYLES}>
+                        Key Contributions:
+                      </h4>
+                      <ul style={RESPONSIBILITIES_LIST_STYLES}>
+                        {project.responsibilities.map((responsibility, idx) => (
+                          <li key={idx} style={LIST_ITEM_STYLES}>
+                            {responsibility}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
-                <a
-                  href={project.codeLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline btn-sm"
-                  aria-label={`View ${project.title} source code`}
-                >
-                  <span style={ICON_STYLES} role="img" aria-label="Code">
-                    💻
-                  </span>
-                  Code
-                </a>
+                {/* Technologies */}
+                <div className="project-tech">
+                  {project.technologies.map((tech) => (
+                    <span key={tech} className="tech-tag">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Project Links */}
+                <div className="project-links">
+                  <a
+                    href={project.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary btn-sm"
+                    style={DEMO_LINK_STYLES}
+                    aria-label={`View ${project.title} demo`}
+                  >
+                    <span style={ICON_STYLES} role="img" aria-label="Link">
+                      🔗
+                    </span>
+                    Demo
+                  </a>
+
+                  <a
+                    href={project.codeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline btn-sm"
+                    aria-label={`View ${project.title} source code`}
+                  >
+                    <span style={ICON_STYLES} role="img" aria-label="Code">
+                      💻
+                    </span>
+                    Code
+                  </a>
+                </div>
               </div>
-            </div>
+            </GlowCard>
           </ScrollReveal>
         );
       }),

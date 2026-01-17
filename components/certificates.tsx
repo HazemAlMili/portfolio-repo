@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
+import GlowCard from "./GlowCard";
 import "../styles/Certificates.css";
 
 // ============================================================================
@@ -199,45 +200,47 @@ function Certificates() {
         return (
           <div
             key={certificate.title}
-            className={`certificate-card ${isVisible ? "fade-in-up" : ""}`}
+            className={`certificate-card-wrapper ${isVisible ? "fade-in-up" : ""}`}
             style={{
               opacity: isVisible ? 1 : 0,
               animationDelay: `${index * 150}ms`,
             }}
           >
-            <div
-              className="certificate-image"
-              style={IMAGE_CONTAINER_STYLES}
-              onClick={() => openModal(certificate.image)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  openModal(certificate.image);
-                }
-              }}
-              aria-label={`View ${certificate.title} certificate`}
-            >
-              <Image
-                src={certificate.image}
-                alt={`${certificate.title} certificate from ${certificate.issuer}`}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                style={{ objectFit: "contain" }}
-                priority={isPriority}
-                loading={isPriority ? "eager" : "lazy"}
-                quality={90}
-              />
-            </div>
+            <GlowCard className="certificate-card">
+              <div
+                className="certificate-image"
+                style={IMAGE_CONTAINER_STYLES}
+                onClick={() => openModal(certificate.image)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openModal(certificate.image);
+                  }
+                }}
+                aria-label={`View ${certificate.title} certificate`}
+              >
+                <Image
+                  src={certificate.image}
+                  alt={`${certificate.title} certificate from ${certificate.issuer}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  style={{ objectFit: "contain" }}
+                  priority={isPriority}
+                  loading={isPriority ? "eager" : "lazy"}
+                  quality={90}
+                />
+              </div>
 
-            <div className="certificate-content">
-              <h3 className="certificate-title">{certificate.title}</h3>
-              <p className="certificate-issuer">{certificate.issuer}</p>
-              <p className="certificate-date">
-                <time dateTime={certificate.date}>{certificate.date}</time>
-              </p>
-            </div>
+              <div className="certificate-content">
+                <h3 className="certificate-title">{certificate.title}</h3>
+                <p className="certificate-issuer">{certificate.issuer}</p>
+                <p className="certificate-date">
+                  <time dateTime={certificate.date}>{certificate.date}</time>
+                </p>
+              </div>
+            </GlowCard>
           </div>
         );
       }),
