@@ -86,6 +86,7 @@ export const projects = [
       "Created interactive features with vanilla JavaScript"
     ],
     technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"],
+    renderStrategy: "SSG" as const,
     demoLink: "https://hazemalmili.github.io/Puresha/",
     codeLink: "https://github.com/HazemAlMili/final-project",
     image: "/puresha.png",
@@ -101,6 +102,7 @@ export const projects = [
       "Collaborated with team on React architecture"
     ],
     technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "ReactJS"],
+    renderStrategy: "CSR" as const,
     demoLink: "https://mohamedabuzahda.github.io/Real-State/",
     codeLink: "https://github.com/mohamedabuzahda/Real-State",
     image: "/real-estate.png",
@@ -117,6 +119,7 @@ export const projects = [
       "Created admin dashboard and leaderboard system"
     ],
     technologies: ["Next.js", "MongoDB", "Mongoose", "TailwindCSS", "Node.js"],
+    renderStrategy: "SSR" as const,
     demoLink: "https://enactus-portal.vercel.app/",
     codeLink: "https://github.com/HazemAlMili/enactus-portal", 
     image: "/overview.png",

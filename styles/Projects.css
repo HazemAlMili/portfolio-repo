@@ -96,3 +96,85 @@
     justify-content: center;
     gap: 0.5rem;
 }
+
+/* Render Strategy Badges */
+.render-strategy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 2px solid;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* CSR - Client-Side Rendering (Electric Blue/Purple) */
+.strategy-csr {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+    border-color: rgb(99, 102, 241);
+    color: rgb(139, 142, 255);
+}
+
+.strategy-csr:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(168, 85, 247, 0.25));
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
+}
+
+/* SSR - Server-Side Rendering (Green/Teal) */
+.strategy-ssr {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(20, 184, 166, 0.15));
+    border-color: rgb(16, 185, 129);
+    color: rgb(52, 211, 153);
+}
+
+.strategy-ssr:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(20, 184, 166, 0.25));
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+}
+
+/* SSG - Static Site Generation (Orange/Amber) */
+.strategy-ssg {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 146, 60, 0.15));
+    border-color: rgb(245, 158, 11);
+    color: rgb(251, 191, 36);
+}
+
+.strategy-ssg:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(251, 146, 60, 0.25));
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Strategy Explanation */
+.strategy-explanation {
+    margin-top: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--accent);
+    border-radius: 0.5rem;
+    animation: slideDown 0.3s ease-out;
+}
+
+.strategy-explanation p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

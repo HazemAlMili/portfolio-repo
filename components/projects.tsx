@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { projects, personalInfo } from "@/lib/data";
 import ScrollReveal from "./ScrollReveal";
@@ -87,10 +87,32 @@ const CTA_TEXT_STYLES = {
 } as const;
 
 // ============================================================================
+// RENDER STRATEGY EXPLANATIONS
+// ============================================================================
+
+const RENDER_STRATEGY_EXPLANATIONS = {
+  CSR: "Client-Side Rendering: The page is rendered in the browser using JavaScript. Fast initial load, but may have slower content display.",
+  SSR: "Server-Side Rendering: Pages are rendered on the server for each request. Great for SEO and dynamic content with fresh data on every visit.",
+  SSG: "Static Site Generation: Pages are pre-built at build time. Extremely fast, perfect for content that doesn't change often."
+} as const;
+
+// ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
 function Projects() {
+  // State to track which project's render strategy explanation is shown
+  // Format: { [projectTitle]: boolean }
+  const [expandedStrategy, setExpandedStrategy] = useState<Record<string, boolean>>({});
+
+  // Toggle explanation for a specific project
+  const toggleStrategyExplanation = (projectTitle: string) => {
+    setExpandedStrategy(prev => ({
+      ...prev,
+      [projectTitle]: !prev[projectTitle]
+    }));
+  };
+
   // Memoize project cards to prevent recreation on every render
   const projectCards = useMemo(
     () =>
@@ -131,6 +153,37 @@ function Projects() {
                     {project.role}
                   </span>
                 </div>
+              )}
+
+              {/* Render Strategy Badge */}
+              {project.renderStrategy && (
+                <>
+                  <div style={ROLE_CONTAINER_STYLES}>
+                    <span 
+                      className={`render-strategy-badge strategy-${project.renderStrategy.toLowerCase()}`}
+                      onClick={() => toggleStrategyExplanation(project.title)}
+                      title={
+                        project.renderStrategy === "CSR" 
+                          ? "Client-Side Rendering" 
+                          : project.renderStrategy === "SSR" 
+                          ? "Server-Side Rendering" 
+                          : "Static Site Generation"
+                      }
+                    >
+                      <span role="img" aria-label="Render Strategy">
+                        {project.renderStrategy === "CSR" ? "⚡" : project.renderStrategy === "SSR" ? "🔄" : "📄"}
+                      </span>
+                      {project.renderStrategy}
+                    </span>
+                  </div>
+                  
+                  {/* Explanation - appears when badge is clicked */}
+                  {expandedStrategy[project.title] && (
+                    <div className="strategy-explanation">
+                      <p>{RENDER_STRATEGY_EXPLANATIONS[project.renderStrategy]}</p>
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Key Responsibilities */}
@@ -192,7 +245,7 @@ function Projects() {
           </ScrollReveal>
         );
       }),
-    [] // Projects from lib/data are static, no dependencies needed
+    [expandedStrategy] // Re-render when explanation state changes
   );
 
   return (
