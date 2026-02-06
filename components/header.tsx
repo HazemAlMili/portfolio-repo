@@ -7,7 +7,7 @@ import "../styles/Header.css";
 // CONSTANTS - Extracted outside component to prevent recreation
 // ============================================================================
 
-const NAV_SECTIONS = ["Home", "About", "Projects", "Certificates", "Contact"] as const;
+const NAV_SECTIONS = ["Home", "About", "Experience", "Projects", "Certificates", "Contact"] as const;
 const SCROLL_THRESHOLD = 50;
 const OBSERVER_OPTIONS = {
   root: null,

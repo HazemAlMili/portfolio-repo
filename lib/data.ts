@@ -131,3 +131,98 @@ export const projects = [
     image: "/overview.png",
   }
 ];
+
+// Experience data
+export interface Experience {
+  company: string;
+  role: string;
+  duration: string;
+  location: string;
+  achievements: string[];
+  current?: boolean;
+}
+
+export const experiences: Experience[] = [
+  {
+    company: "Enactus CIC",
+    role: "Head of Information Technology Department",
+    duration: "September 2025 - Present",
+    location: "Cairo, Egypt",
+    current: true,
+    achievements: [
+      "Leading a multidisciplinary team to deliver high-impact digital solutions",
+      "Spearheaded the technical roadmap and system architecture for the organization's portal, ensuring scalability and performance",
+      "Expert in bridging the gap between social impact goals and technical execution",
+      "Mentoring junior developers and optimizing team workflows"
+    ]
+  },
+  {
+    company: "Nahdet Misr Publishing Group",
+    role: "Usher",
+    duration: "January 2026",
+    location: "New Cairo, Egypt",
+    achievements: [
+      "Represented Nahdet Masr at the Cairo International Book Fair",
+      "Proactively engaged with diverse audiences to deliver persuasive product pitches",
+      "Drove sales through exceptional communication and customer guidance"
+    ]
+  },
+  {
+    company: "Microsoft Student Club - CIC",
+    role: "Frontend Mentor",
+    duration: "December 2025 - Present",
+    location: "El Sheikh Zaid, Al Jizah, Egypt",
+    current: true,
+    achievements: [
+      "Mentoring students in modern frontend development practices",
+      "Conducting workshops on React, TypeScript, and web performance",
+      "Fostering a collaborative learning environment"
+    ]
+  },
+  {
+    company: "Google Developer Groups on Campus: CIC",
+    role: "Frontend Developer",
+    duration: "April 2025 - July 2025",
+    location: "6th of October, Al Jizah, Egypt",
+    achievements: [
+      "Developed front-end applications using HTML, CSS, JavaScript, and React.js, enhancing user experience",
+      "Collaborated with team members to improve communication and teamwork skills, fostering a productive environment",
+      "Engaged in continuous learning to stay updated with industry trends, contributing to personal and team growth"
+    ]
+  },
+  {
+    company: "Enactus CIC",
+    role: "Member of Information Technology Department",
+    duration: "October 2024 - September 2025",
+    location: "Egypt",
+    achievements: [
+      "Played a key role in the Frontend Development Team, focusing on creating a new responsive website",
+      "Utilized HTML, CSS, and JavaScript with Bootstrap to ensure the site was user-friendly",
+      "Met the presentation standards for National Competition (NC)",
+      "Enhanced web development skills while contributing to a mission-driven startup"
+    ]
+  },
+  {
+    company: "Rayahen Roastery",
+    role: "Sales Director",
+    duration: "February 2024 - September 2024",
+    location: "6th of October, Egypt",
+    achievements: [
+      "Led sales strategy and team management",
+      "Improved customer engagement and satisfaction",
+      "Drove revenue growth through strategic initiatives"
+    ]
+  },
+  {
+    company: "Rayahen Roastery",
+    role: "Sales Specialist",
+    duration: "June 2016 - June 2017",
+    location: "6th of October, Egypt",
+    achievements: [
+      "Delivered exceptional customer service",
+      "Achieved sales targets consistently",
+      "Built strong customer relationships"
+    ]
+  }
+];
+

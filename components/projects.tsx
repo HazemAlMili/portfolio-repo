@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import React, { useMemo, useState, memo } from "react";
 import Image from "next/image";
 import { projects, personalInfo } from "@/lib/data";
 import ScrollReveal from "./ScrollReveal";
@@ -98,10 +98,10 @@ const RENDER_STRATEGY_EXPLANATIONS = {
 } as const;
 
 // ============================================================================
-// MAIN COMPONENT
+// MAIN COMPONENT - PERFORMANCE: Memoized
 // ============================================================================
 
-function Projects() {
+const Projects = memo(function Projects() {
   // State to track which project's render strategy explanation is shown
   // Format: { [projectTitle]: boolean }
   const [expandedStrategy, setExpandedStrategy] = useState<Record<string, boolean>>({});
@@ -114,7 +114,7 @@ function Projects() {
     }));
   };
 
-  // Memoize project cards to prevent recreation on every render
+  // PERFORMANCE: Memoize project card JSX (no individual ScrollReveal per card)
   const projectCards = useMemo(
     () =>
       projects.map((project, index) => {
@@ -122,11 +122,7 @@ function Projects() {
         const isPriority = index < 3;
 
         return (
-          <ScrollReveal
-            key={project.title}
-            delay={index * 150}
-          >
-            <GlowCard className="project-card">
+            <GlowCard key={project.title} className="project-card">
               <div className="project-image" style={IMAGE_CONTAINER_STYLES}>
                 <Image
                   src={project.image}
@@ -244,7 +240,6 @@ function Projects() {
                 </div>
               </div>
             </GlowCard>
-          </ScrollReveal>
         );
       }),
     [expandedStrategy] // Re-render when explanation state changes
@@ -263,8 +258,10 @@ function Projects() {
             </p>
           </div>
 
-          {/* Projects Grid */}
-          <div className="projects-grid">{projectCards}</div>
+          {/* Projects Grid - PERFORMANCE: Batched stagger */}
+          <ScrollReveal staggerChildren staggerDelay={0.1}>
+            <div className="projects-grid">{projectCards}</div>
+          </ScrollReveal>
 
           {/* Call to Action */}
           <div style={CTA_CONTAINER_STYLES}>
@@ -288,6 +285,6 @@ function Projects() {
       </div>
     </section>
   );
-}
+});
 
 export default Projects;

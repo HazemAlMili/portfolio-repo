@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import Typed from "typed.js";
 import Image from "next/image";
 import { personalInfo } from "@/lib/data";
@@ -8,7 +8,8 @@ import ScrollReveal from "./ScrollReveal";
 
 import "../styles/Hero.css";
 
-export default function Hero() {
+// PERFORMANCE: Memoized to prevent unnecessary re-renders
+const Hero = memo(function Hero() {
   const typedRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -38,34 +39,28 @@ export default function Hero() {
     <section id="home" className="hero">
       <div className="container">
         <div className="hero-layout">
-          {/* Left Column - Content */}
+          {/* Left Column - Content - PERFORMANCE: Batched animations */}
           <div className="hero-content">
-            {/* Main Heading */}
-            <ScrollReveal delay={100} direction="down">
+            <ScrollReveal staggerChildren staggerDelay={0.15} delay={100}>
+              {/* Main Heading */}
               <h1 className="hero-title">
                 Hi, I am <span className="accent" ref={typedRef}></span>
               </h1>
-            </ScrollReveal>
 
-            {/* Subtitle */}
-            <ScrollReveal delay={300} direction="up">
+              {/* Subtitle */}
               <p className="hero-subtitle">
                 A passionate <span className="accent">Front-End Developer</span>{" "}
                 crafting beautiful and functional web experiences
               </p>
-            </ScrollReveal>
 
-            {/* Description */}
-            <ScrollReveal delay={500} direction="up">
+              {/* Description */}
               <p className="hero-description">
                 I specialize in creating responsive, user-friendly websites using
                 modern technologies like React, HTML5, CSS3, and JavaScript. Lets
                 build something amazing together.
               </p>
-            </ScrollReveal>
 
-            {/* CTA Buttons */}
-            <ScrollReveal delay={700} direction="up">
+              {/* CTA Buttons */}
               <div className="hero-buttons">
                 <button
                   onClick={() => scrollToSection("projects")}
@@ -105,10 +100,8 @@ export default function Hero() {
                   Get In Touch
                 </button>
               </div>
-            </ScrollReveal>
 
-            {/* Social Links */}
-            <ScrollReveal delay={900} direction="up">
+              {/* Social Links */}
               <div className="social-links">
                 <a
                   href={personalInfo.socialLinks.github}
@@ -176,4 +169,6 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+});
+
+export default Hero;

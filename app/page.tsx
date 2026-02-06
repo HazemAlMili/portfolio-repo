@@ -17,6 +17,7 @@ const About = dynamic(() => import('@/components/about'), {
 });
 
 // These load on demand as user scrolls
+const Experience = dynamic(() => import('@/components/experience'));
 const Projects = dynamic(() => import('@/components/projects'));
 const Certificates = dynamic(() => import('@/components/certificates'));
 const Contact = dynamic(() => import('@/components/contact'));
@@ -38,6 +39,10 @@ function Home() {
       {/* Lazy: Load as needed */}
       <Suspense fallback={<div className="section-skeleton" />}>
         <About />
+      </Suspense>
+      
+      <Suspense fallback={<div className="section-skeleton" />}>
+        <Experience />
       </Suspense>
       
       <Suspense fallback={<div className="section-skeleton" />}>

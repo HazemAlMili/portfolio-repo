@@ -1,15 +1,20 @@
+/* PERFORMANCE: Optimized for zero-lag scrolling */
 .glow-card {
     position: relative;
     isolation: isolate;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* PERFORMANCE: Removed expensive backdrop-filter blur, using solid bg instead */
+    background: rgba(10, 10, 10, 0.95);
     border-radius: var(--radius);
-    transition: transform 0.5s cubic-bezier(0.2, 1, 0.2, 1),
-        box-shadow 0.5s cubic-bezier(0.2, 1, 0.2, 1),
+    /* PERFORMANCE: Removed box-shadow transition - use will-change instead */
+    transition: transform 0.4s cubic-bezier(0.2, 1, 0.2, 1),
         border-color 0.3s ease;
     display: flex;
     flex-direction: column;
+    /* PERFORMANCE: Force GPU compositing */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .glow-overlay {
@@ -19,11 +24,14 @@
     z-index: 1;
     pointer-events: none;
     opacity: var(--glow-opacity, 0);
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
     background: radial-gradient(var(--glow-size, 400px) circle at var(--mouse-x, 0) var(--mouse-y, 0),
             var(--glow-color, rgba(255, 255, 255, 0.1)),
             transparent 80%);
     border-radius: inherit;
+    /* PERFORMANCE: Force GPU layer */
+    will-change: opacity;
+    transform: translate3d(0, 0, 0);
 }
 
 .glow-content {
