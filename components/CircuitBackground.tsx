@@ -248,19 +248,9 @@ const CircuitBackground: React.FC = () => {
       }
     };
 
-    // Optimized mouse influence calculation
+    // Mouse influence disabled - circuit background is static (no hover effects)
     const getMouseInfluence = (x: number, y: number): number => {
-      const mouse = mouseRef.current;
-      if (mouse.strength < 0.01) return 0;
-
-      const dx = x - mouse.x;
-      const dy = y - mouse.y;
-      const distSquared = dx * dx + dy * dy;
-      const radiusSquared = mouse.radius * mouse.radius;
-
-      if (distSquared > radiusSquared) return 0;
-
-      return (1 - Math.sqrt(distSquared) / mouse.radius) * mouse.strength;
+      return 0; // Always return 0 to disable hover effects
     };
 
     // Get point on path (cached calculations)
@@ -461,10 +451,10 @@ const CircuitBackground: React.FC = () => {
         drawPacket(packet);
       });
 
-      // Fade mouse influence
-      if (mouseRef.current.strength > 0) {
-        mouseRef.current.strength *= 0.96;
-      }
+      // Mouse influence disabled - no fading needed
+      // if (mouseRef.current.strength > 0) {
+      //   mouseRef.current.strength *= 0.96;
+      // }
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -475,8 +465,9 @@ const CircuitBackground: React.FC = () => {
 
     // Event listeners with proper options for performance
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseleave', handleMouseLeave);
+    // Mouse events disabled - no hover effects
+    // window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    // window.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Start animation
@@ -486,8 +477,9 @@ const CircuitBackground: React.FC = () => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
+      // Mouse events disabled - no hover effects
+      // window.removeEventListener('mousemove', handleMouseMove);
+      // window.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       clearTimeout(resizeTimeout);
       if (animationFrameRef.current) {
