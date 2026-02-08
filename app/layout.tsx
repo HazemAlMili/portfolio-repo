@@ -34,7 +34,7 @@ const CircuitBackground = dynamic(() => import("@/components/CircuitBackground")
 export const metadata: Metadata = {
   metadataBase: new URL("https://hazemalmelli.vercel.app"),
   title: {
-    default: "Hazem Al-Melli | Front-End Developer & React Specialist",
+    default: "Hazem Al-Melli",
     template: "%s | Hazem Al-Melli",
   },
   description:
