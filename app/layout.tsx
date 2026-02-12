@@ -33,36 +33,70 @@ const CircuitBackground = dynamic(() => import("@/components/CircuitBackground")
 // ============================================================================
 export const metadata: Metadata = {
   metadataBase: new URL("https://hazemalmelli.vercel.app"),
+  
   title: {
-    default: "Hazem Al-Melli",
-    template: "%s | Hazem Al-Melli",
+    default: "Hazem's Portfolio - Front-End Developer",
+    template: "%s | Hazem's Portfolio",
   },
+  
   description:
-    "Experienced Front-End Developer specializing in React, Next.js, and TypeScript. Building modern, responsive web applications in Cairo, Egypt.",
+    "Hazem Al-Melli - Professional Front-End Developer based in Cairo, Egypt. Specializing in React, Next.js, TypeScript, and modern web technologies. Building responsive, high-performance web applications with cutting-edge design.",
   
   keywords: [
+    // Primary Keywords
     "Front-End Developer",
-    "React Developer", 
-    "Next.js", 
+    "React Specialist",
+    "React Developer",
+    "Next.js Developer",
+    "TypeScript Developer",
     "Hazem Al-Melli",
-    "Hazem", 
+    
+    // Name Variations
+    "Hazem",
     "AlMelli",
     "almelli",
-    "HazemAlMelli", 
+    "HazemAlMelli",
     "HazemAlMili",
     "hazemalmili",
     "HazemAlMile",
-    "hazemalmile", 
-    "Front-End Developer Cairo",
+    "hazemalmile",
     "hazemalmelli",
-    "web",
-    "developer",
-    "frontend",
+    
+    // Technical Skills
+    "JavaScript Developer",
+    "Web Developer",
+    "UI Developer",
+    "Full Stack Developer",
+    "Frontend Engineer",
+    "React.js",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Responsive Design",
+    "Web Performance",
+    "Modern Web Design",
+    
+    // Location-Based
+    "Front-End Developer Cairo",
+    "React Developer Egypt",
+    "Web Developer Cairo",
+    "Software Developer Egypt",
+    "Cairo Developer",
+    "Egypt Web Development",
+    
+    // Additional
+    "Portfolio",
+    "Web Applications",
+    "User Interface",
+    "User Experience",
     "vibe engineer",
     "vibe coder",
+    
+    // Arabic Keywords
     "حازم الملي",
-    "مطور واجهات أمامية", 
+    "مطور واجهات أمامية",
     "مبرمج ريأكت",
+    "مطور ويب",
   ],
   
   authors: [{ name: "Hazem Al-Melli", url: "https://hazemalmelli.vercel.app" }],
@@ -73,32 +107,58 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://hazemalmelli.vercel.app/",
-    siteName: "Hazem Al-Melli", // لضمان تغيير كلمة Vercel في جوجل
-    title: "Hazem Al-Melli | Front-End Developer",
-    description: "Explore my portfolio of modern web applications and cutting-edge projects.",
+    siteName: "Hazem's Portfolio",
+    title: "Hazem's Portfolio - Front-End Developer & React Specialist",
+    description: "Professional Front-End Developer based in Cairo, Egypt. Specializing in React, Next.js, and TypeScript. Explore my portfolio of modern web applications.",
     images: [
       {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Hazem Al-Melli Portfolio",
+        alt: "Hazem's Portfolio - Front-End Developer",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Hazem Al-Melli | Front-End Developer",
-    description: "Experienced Front-End Developer building modern web applications.",
+    title: "Hazem's Portfolio - Front-End Developer",
+    description: "Professional Front-End Developer from Cairo, Egypt. Building modern web applications with React, Next.js & TypeScript.",
     images: ["/api/og"],
+    creator: "@HazemAlMelli",
   },
 
-  // ملاحظة: تم حذف قسم icons لأنك وضعت icon.png داخل فولدر app
-  // Next.js سيتعرف عليها تلقائياً ويولد الروابط الصحيحة.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+  },
 
   manifest: "/manifest.json",
+  
   verification: {
     google: "1f4ac51d03ae467c",
+  },
+  
+  alternates: {
+    canonical: "https://hazemalmelli.vercel.app",
+  },
+  
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -113,15 +173,59 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable} dark`}>
       <head>
-        {/* JSON-LD - أقوى طريقة لتعريف اسم الموقع لجوجل */}
+        {/* JSON-LD Structured Data - WebSite Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
+              "name": "Hazem's Portfolio",
+              "alternateName": "Hazem Al-Melli Portfolio",
+              "url": "https://hazemalmelli.vercel.app/",
+              "description": "Professional Front-End Developer portfolio showcasing modern web applications built with React, Next.js, and TypeScript",
+              "inLanguage": "en-US",
+              "author": {
+                "@type": "Person",
+                "name": "Hazem Al-Melli"
+              }
+            }),
+          }}
+        />
+        
+        {/* JSON-LD Structured Data - Person Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
               "name": "Hazem Al-Melli",
-              "url": "https://hazemalmelli.vercel.app/"
+              "alternateName": ["Hazem AlMelli", "HazemAlMelli", "Hazem"],
+              "url": "https://hazemalmelli.vercel.app/",
+              "image": "https://hazemalmelli.vercel.app/api/og",
+              "jobTitle": "Front-End Developer",
+              "description": "Professional Front-End Developer specializing in React, Next.js, and TypeScript",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Cairo",
+                "addressCountry": "Egypt"
+              },
+              "knowsAbout": [
+                "React",
+                "Next.js",
+                "TypeScript",
+                "JavaScript",
+                "Front-End Development",
+                "Web Development",
+                "UI/UX Design",
+                "Responsive Design",
+                "Web Performance"
+              ],
+              "sameAs": [
+                "https://github.com/HazemAlMili",
+                "https://hazemalmelli.vercel.app"
+              ]
             }),
           }}
         />
