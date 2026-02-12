@@ -6,7 +6,7 @@ export const personalInfo = {
   location: "Cairo, Egypt", // Update with your actual location
   socialLinks: {
     github: "https://github.com/HazemAlMili",
-    linkedin: "https://www.linkedin.com/in/hazem-al-melli-a0a0992a5",
+    linkedin: "https://www.linkedin.com/in/hazem-al-melli",
     instagram: "https://www.instagram.com/hazem_almelli/",
     facebook: "https://www.facebook.com/HazemAlMelli/",
   },
