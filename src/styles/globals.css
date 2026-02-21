@@ -226,9 +226,9 @@ body::selection {
 /* Updated ScrollReveal CSS class - Premium Animation */
 .scroll-reveal {
   opacity: 0;
-  transform: translate3d(0, 40px, 0);
-  transition: opacity 1.2s cubic-bezier(0.21, 1.02, 0.73, 1),
-    transform 1.2s cubic-bezier(0.21, 1.02, 0.73, 1);
+  transform: translate3d(0, 15px, 0);
+  transition: opacity 0.3s ease-out,
+    transform 0.3s ease-out;
   will-change: transform, opacity;
 }
 

@@ -21,7 +21,7 @@ const ScrollReveal = memo(function ScrollReveal({
   className = "",
   delay = 0,
   direction = "up",
-  distance = 40,
+  distance = 15,
   style = {},
   staggerChildren = false,
   staggerDelay = 0.05,
@@ -52,20 +52,20 @@ const ScrollReveal = memo(function ScrollReveal({
           opacity: 1,
           transform: "translate3d(0, 0, 0)",
           transition: {
-            duration: 0.6,
-            delay: delay / 1000,
-            ease: [0.21, 1.02, 0.73, 1],
-            staggerChildren: staggerDelay,
-            delayChildren: delay / 1000,
+            duration: 0.3,
+            delay: delay / 1500,
+            ease: "easeOut",
+            staggerChildren: staggerDelay / 2,
+            delayChildren: delay / 1500,
           },
         }
       : {
           opacity: 1,
           transform: "translate3d(0, 0, 0)",
           transition: {
-            duration: 0.6,
-            delay: delay / 1000,
-            ease: [0.21, 1.02, 0.73, 1],
+            duration: 0.3,
+            delay: delay / 1500,
+            ease: "easeOut",
           },
         },
   };
@@ -77,8 +77,8 @@ const ScrollReveal = memo(function ScrollReveal({
       opacity: 1,
       transform: "translate3d(0, 0, 0)",
       transition: {
-        duration: 0.5,
-        ease: [0.21, 1.02, 0.73, 1],
+        duration: 0.25,
+        ease: "easeOut",
       },
     },
   };
@@ -87,7 +87,7 @@ const ScrollReveal = memo(function ScrollReveal({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-10%", amount: 0.1 }}
+      viewport={{ once: true, margin: "100px", amount: 0 }}
       variants={variants}
       className={className}
       style={{
