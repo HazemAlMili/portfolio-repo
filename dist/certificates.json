@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Front-End Development Certificate",
+    "issuer": "GDG CIC",
+    "date": "July 2025",
+    "image": "/GDG-Frontend-Certifecate.png"
+  },
+  {
+    "title": "Enactus IT Certificate (Front-End Team Member)",
+    "issuer": "Enactus CIC",
+    "date": "September 2025",
+    "image": "/Enactus-IT-Certifecate.jpeg"
+  },
+  {
+    "title": "Backend Development Certificate",
+    "issuer": "IEEE SCU",
+    "date": "March 2025",
+    "image": "/Backend-Development-Certifecate.jpg"
+  },
+  {
+    "title": "Bootstrap Certificate",
+    "issuer": "Ma3aref Academy",
+    "date": "February 2025",
+    "image": "/Bootstrap-Certifecate.jpg"
+  },
+  {
+    "title": "Effective Leadership Certificate",
+    "issuer": "HP life",
+    "date": "January 2025",
+    "image": "/Effective Leadership-Certifecate.jpg"
+  },
+  {
+    "title": "Git & GitHub Certificate",
+    "issuer": "Almadrasa Academy",
+    "date": "April 2025",
+    "image": "/Git & GitHub-Certifecate.jpg"
+  },
+  {
+    "title": "SEO Certificate",
+    "issuer": "Semrush Academy",
+    "date": "February 2025",
+    "image": "/SEO-Certifecate.jpg"
+  },
+  {
+    "title": "UI/UX Basics Certificate",
+    "issuer": "Ma3aref Academy",
+    "date": "February 2025",
+    "image": "/UI UX Basics-Certifecate.jpg"
+  }
+]
